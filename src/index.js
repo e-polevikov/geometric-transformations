@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { GeomTransformationsStage } from './components/GeomTransformationsStage';
+import { GeomTransformationsStage } from './components/GeomTransformationsStage/GeomTransformationsStage';
 
 function App() {
   return (
