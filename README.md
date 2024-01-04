@@ -1,3 +1,3 @@
 # Задача «Геометрические преобразования» для конкурса КИО
 
-Демо: WIP.
+Демо: [https://e-polevikov.github.io/geometric-transformations/](https://e-polevikov.github.io/geometric-transformations/).
