@@ -1,0 +1,15 @@
+.geom-transformations-stage {
+  display: flex;
+}
+
+.transformations-panel {
+  border: solid black 2px;
+  padding: 10px;
+  margin: 6px;
+  width: 20%;
+}
+
+.stage {
+  border: solid black 2px;
+  margin: 6px;
+}
