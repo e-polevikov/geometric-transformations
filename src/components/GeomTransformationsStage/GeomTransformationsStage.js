@@ -8,6 +8,7 @@ import {
 } from '../../constants/GeomTransformationsStage';
 
 import { StageGrid } from '../StageGrid/StageGrid';
+import { Point } from '../Point/Point';
 
 import styles from './GeomTransformationsStage.module.css';
 
@@ -26,6 +27,7 @@ export function GeomTransformationsStage() {
               stageHeight={STAGE_HEIGHT}
               indent={GRID_INDENT}
             />
+            <Point gridIndent={GRID_INDENT} />
           </Layer>
         </Stage>
       </div>
