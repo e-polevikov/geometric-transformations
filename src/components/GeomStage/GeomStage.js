@@ -5,16 +5,29 @@ import {
   STAGE_WIDTH,
   STAGE_HEIGHT,
   GRID_INDENT
-} from '../../constants/GeomTransformationsStage';
+} from '../../constants/GeomStage';
 
 import { StageGrid } from '../StageGrid/StageGrid';
-import { Point } from '../Point/Point';
+import { Line } from '../Line/Line';
 
-import styles from './GeomTransformationsStage.module.css';
+import styles from './GeomStage.module.css';
 
-export function GeomTransformationsStage() {
+export function GeomStage() {
+  const [line, setLine] = useState([
+    {
+      id: "0",
+      x: 3 * GRID_INDENT,
+      y: 5 * GRID_INDENT
+    },
+    {
+      id: "1",
+      x: 7 * GRID_INDENT,
+      y: 9 * GRID_INDENT      
+    }
+  ]);
+
   return (
-    <div className={styles['geom-transformations-stage']}>
+    <div className={styles['geom-stage']}>
       <div className={styles['transformations-panel']}>
         <h2 style={{textAlign: "center"}}>Преобразования</h2>
       </div>
@@ -25,9 +38,13 @@ export function GeomTransformationsStage() {
             <StageGrid
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}
-              indent={GRID_INDENT}
+              gridIndent={GRID_INDENT}
             />
-            <Point gridIndent={GRID_INDENT} />
+            <Line
+              line={line}
+              setLine={setLine}
+              gridIndent={GRID_INDENT}
+            />
           </Layer>
         </Stage>
       </div>

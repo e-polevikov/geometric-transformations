@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { GeomTransformationsStage } from './components/GeomTransformationsStage/GeomTransformationsStage';
+import { GeomStage } from './components/GeomStage/GeomStage';
 
 function App() {
   return (
     <>
-      <GeomTransformationsStage />
+      <GeomStage />
     </>
   );
 }
