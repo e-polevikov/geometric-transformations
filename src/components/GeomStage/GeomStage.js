@@ -9,6 +9,7 @@ import {
 
 import { StageGrid } from '../StageGrid/StageGrid';
 import { Line } from '../Line/Line';
+import { Angle } from '../Angle/Angle';
 
 import styles from './GeomStage.module.css';
 
@@ -23,6 +24,24 @@ export function GeomStage() {
       id: "1",
       x: 7 * GRID_INDENT,
       y: 9 * GRID_INDENT      
+    }
+  ]);
+
+  const [angle, setAngle] = useState([
+    {
+      id: "0",
+      x: 13 * GRID_INDENT,
+      y: 15 * GRID_INDENT
+    },
+    {
+      id: "1",
+      x: 7 * GRID_INDENT,
+      y: 18 * GRID_INDENT      
+    },
+    {
+      id: "2",
+      x: 9 * GRID_INDENT,
+      y: 22 * GRID_INDENT      
     }
   ]);
 
@@ -43,6 +62,13 @@ export function GeomStage() {
             <Line
               line={line}
               setLine={setLine}
+              stageWidth={STAGE_WIDTH}
+              stageHeight={STAGE_HEIGHT}
+              gridIndent={GRID_INDENT}
+            />
+            <Angle
+              angle={angle}
+              setAngle={setAngle}
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}
