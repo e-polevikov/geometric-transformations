@@ -43,6 +43,8 @@ export function GeomStage() {
             <Line
               line={line}
               setLine={setLine}
+              stageWidth={STAGE_WIDTH}
+              stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}
             />
           </Layer>

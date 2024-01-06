@@ -1,8 +1,6 @@
 import { Circle } from 'react-konva';
 
-import { STAGE_WIDTH, STAGE_HEIGHT } from '../../constants/GeomStage';
-
-export function Line({ line, setLine, gridIndent }) {
+export function Line({ line, setLine, stageWidth, stageHeight, gridIndent }) {
   function handleDragEnd(event) {
     let dragEndX = event.target.x();
     let dragEndY = event.target.y();
@@ -11,8 +9,8 @@ export function Line({ line, setLine, gridIndent }) {
     let finalX = line[pointId].x;
     let finalY = line[pointId].y;
 
-    if (dragEndX > 0 && dragEndX < STAGE_WIDTH &&
-        dragEndY > 0 && dragEndY < STAGE_HEIGHT
+    if (dragEndX > 0 && dragEndX < stageWidth &&
+        dragEndY > 0 && dragEndY < stageHeight
     ) {
       finalX = Math.round(dragEndX / gridIndent) * gridIndent;
       finalY = Math.round(dragEndY / gridIndent) * gridIndent;
