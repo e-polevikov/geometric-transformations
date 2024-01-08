@@ -1,10 +1,28 @@
 import { Circle, Line as KonvaLine } from 'react-konva';
 import { useState } from 'react';
 
+function getKonvaLinePoints(line, stageWidth, stageHeight) {
+  let x1 = line[0].x;
+  let y1 = line[0].y;
+  let x2 = line[1].x;
+  let y2 = line[1].y;
+
+  if (y2 === y1) {
+    return [0, y1, stageWidth, y2];
+  }
+
+  let k = (x2 - x1) / (y2 - y1);
+  
+  return [
+    (0 - y1) * k + x1, 0,
+    (stageHeight - y1) * k + x1, stageHeight,
+  ];
+}
+
 export function Line({ line, setLine, stageWidth, stageHeight, gridIndent }) {
-  const [konvaLinePoints, setKonvaLinePoints] = useState([
-    line[0].x, line[0].y, line[1].x, line[1].y
-  ]);
+  const [konvaLinePoints, setKonvaLinePoints] = useState(
+    getKonvaLinePoints(line, stageWidth, stageHeight)
+  );
 
   function handleDragEnd(event) {
     let dragEndX = event.target.x();
@@ -31,7 +49,7 @@ export function Line({ line, setLine, stageWidth, stageHeight, gridIndent }) {
     event.target.x(finalX);
     event.target.y(finalY);
 
-    setLine(line.map((point) => {
+    let newLine = line.map((point) => {
       if (point.id === event.target.id()) {
         return {
           id: point.id,
@@ -41,14 +59,13 @@ export function Line({ line, setLine, stageWidth, stageHeight, gridIndent }) {
       }
 
       return point;
-    }));
+    });
 
-    let newKonvaLinePoints = JSON.parse(JSON.stringify(konvaLinePoints));
+    setLine(newLine);
 
-    newKonvaLinePoints[2 * pointId] = finalX;
-    newKonvaLinePoints[2 * pointId + 1] = finalY;
-
-    setKonvaLinePoints(newKonvaLinePoints);
+    setKonvaLinePoints(
+      getKonvaLinePoints(newLine, stageWidth, stageHeight)
+    );
   }
 
   function handleDragMove(event) {
@@ -56,12 +73,14 @@ export function Line({ line, setLine, stageWidth, stageHeight, gridIndent }) {
     let y = event.target.y();
     let targetId = Number(event.target.id());
 
-    let newKonvaLinePoints = JSON.parse(JSON.stringify(konvaLinePoints));
+    let updatedLine = JSON.parse(JSON.stringify(line));
 
-    newKonvaLinePoints[2 * targetId] = x;
-    newKonvaLinePoints[2 * targetId + 1] = y;
+    updatedLine[targetId].x = x;
+    updatedLine[targetId].y = y;
 
-    setKonvaLinePoints(newKonvaLinePoints);
+    setKonvaLinePoints(
+      getKonvaLinePoints(updatedLine, stageWidth, stageHeight)
+    );
   }
 
   return (
