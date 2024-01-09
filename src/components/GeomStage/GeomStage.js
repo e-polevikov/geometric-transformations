@@ -14,7 +14,7 @@ import { Angle } from '../Angle/Angle';
 import styles from './GeomStage.module.css';
 
 export function GeomStage() {
-  const [line, setLine] = useState([
+  const [linePoints, setLinePoints] = useState([
     {
       id: "0",
       x: 3 * GRID_INDENT,
@@ -27,7 +27,7 @@ export function GeomStage() {
     }
   ]);
 
-  const [angle, setAngle] = useState([
+  const [anglePoints, setAnglePoints] = useState([
     {
       id: "0",
       x: 13 * GRID_INDENT,
@@ -60,15 +60,15 @@ export function GeomStage() {
               gridIndent={GRID_INDENT}
             />
             <Line
-              line={line}
-              setLine={setLine}
+              linePoints={linePoints}
+              setLinePoints={setLinePoints}
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}
             />
             <Angle
-              angle={angle}
-              setAngle={setAngle}
+              anglePoints={anglePoints}
+              setAnglePoints={setAnglePoints}
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}

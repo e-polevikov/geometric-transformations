@@ -1,11 +1,11 @@
 import { Circle, Line as KonvaLine } from 'react-konva';
 import { useState } from 'react';
 
-function getKonvaLinePoints(line, stageWidth, stageHeight) {
-  let x1 = line[0].x;
-  let y1 = line[0].y;
-  let x2 = line[1].x;
-  let y2 = line[1].y;
+function getKonvaLinePoints(linePoints, stageWidth, stageHeight) {
+  let x1 = linePoints[0].x;
+  let y1 = linePoints[0].y;
+  let x2 = linePoints[1].x;
+  let y2 = linePoints[1].y;
 
   if (y2 === y1) {
     return [0, y1, stageWidth, y2];
@@ -19,9 +19,15 @@ function getKonvaLinePoints(line, stageWidth, stageHeight) {
   ];
 }
 
-export function Line({ line, setLine, stageWidth, stageHeight, gridIndent }) {
+export function Line({
+  linePoints,
+  setLinePoints,
+  stageWidth,
+  stageHeight,
+  gridIndent
+}) {
   const [konvaLinePoints, setKonvaLinePoints] = useState(
-    getKonvaLinePoints(line, stageWidth, stageHeight)
+    getKonvaLinePoints(linePoints, stageWidth, stageHeight)
   );
 
   function handleDragEnd(event) {
@@ -29,8 +35,8 @@ export function Line({ line, setLine, stageWidth, stageHeight, gridIndent }) {
     let dragEndY = event.target.y();
     let pointId = Number(event.target.id());
 
-    let finalX = line[pointId].x;
-    let finalY = line[pointId].y;
+    let finalX = linePoints[pointId].x;
+    let finalY = linePoints[pointId].y;
 
     if (dragEndX > 0 && dragEndX < stageWidth &&
         dragEndY > 0 && dragEndY < stageHeight
@@ -40,16 +46,16 @@ export function Line({ line, setLine, stageWidth, stageHeight, gridIndent }) {
 
       let sndPointId = (pointId + 1) % 2;
 
-      if (finalX === line[sndPointId].x && finalY === line[sndPointId].y) {
-        finalX = line[pointId].x;
-        finalY = line[pointId].y;
+      if (finalX === linePoints[sndPointId].x && finalY === linePoints[sndPointId].y) {
+        finalX = linePoints[pointId].x;
+        finalY = linePoints[pointId].y;
       }
     }
 
     event.target.x(finalX);
     event.target.y(finalY);
 
-    let newLine = line.map((point) => {
+    let newLinePoints = linePoints.map((point) => {
       if (point.id === event.target.id()) {
         return {
           id: point.id,
@@ -61,31 +67,31 @@ export function Line({ line, setLine, stageWidth, stageHeight, gridIndent }) {
       return point;
     });
 
-    setLine(newLine);
+    setLinePoints(newLinePoints);
 
     setKonvaLinePoints(
-      getKonvaLinePoints(newLine, stageWidth, stageHeight)
+      getKonvaLinePoints(newLinePoints, stageWidth, stageHeight)
     );
   }
 
   function handleDragMove(event) {
     let x = event.target.x();
     let y = event.target.y();
-    let targetId = Number(event.target.id());
+    let pointId = Number(event.target.id());
 
-    let updatedLine = JSON.parse(JSON.stringify(line));
+    let updatedLinePoints = JSON.parse(JSON.stringify(linePoints));
 
-    updatedLine[targetId].x = x;
-    updatedLine[targetId].y = y;
+    updatedLinePoints[pointId].x = x;
+    updatedLinePoints[pointId].y = y;
 
     setKonvaLinePoints(
-      getKonvaLinePoints(updatedLine, stageWidth, stageHeight)
+      getKonvaLinePoints(updatedLinePoints, stageWidth, stageHeight)
     );
   }
 
   return (
     <>
-      {line.map((point) => (
+      {linePoints.map((point) => (
         <Circle
           id={point.id}
           key={point.id}
