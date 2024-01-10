@@ -17,31 +17,31 @@ export function GeomStage() {
   const [linePoints, setLinePoints] = useState([
     {
       id: "0",
-      x: 3 * GRID_INDENT,
-      y: 5 * GRID_INDENT
+      x: 20 * GRID_INDENT,
+      y: 15 * GRID_INDENT
     },
     {
       id: "1",
-      x: 7 * GRID_INDENT,
-      y: 9 * GRID_INDENT      
+      x: 25 * GRID_INDENT,
+      y: 20 * GRID_INDENT      
     }
   ]);
 
   const [anglePoints, setAnglePoints] = useState([
     {
       id: "0",
-      x: 13 * GRID_INDENT,
-      y: 15 * GRID_INDENT
+      x: 15 * GRID_INDENT,
+      y: 5 * GRID_INDENT
     },
     {
       id: "1",
-      x: 7 * GRID_INDENT,
-      y: 18 * GRID_INDENT      
+      x: 22 * GRID_INDENT,
+      y: 5 * GRID_INDENT      
     },
     {
       id: "2",
-      x: 9 * GRID_INDENT,
-      y: 22 * GRID_INDENT      
+      x: 22 * GRID_INDENT,
+      y: 8 * GRID_INDENT      
     }
   ]);
 

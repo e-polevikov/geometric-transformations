@@ -1,4 +1,4 @@
-import { Circle, Arc, Text, Line as KonvaLine } from 'react-konva';
+import { Circle, Arc, Text, Arrow, Line as KonvaLine } from 'react-konva';
 import { useState } from 'react';
 
 function getAngle(anglePoints) {
@@ -179,5 +179,16 @@ export function Angle({
     opacity={0.25}
     stroke={'black'}
     strokeWidth={1}
+  />
+  <Arrow
+    x={gridIndent}
+    y={gridIndent}
+    points={[0, 0, 4 * gridIndent, 0, 4 * gridIndent, 4 * gridIndent]}
+    pointerLength={gridIndent}
+    pointerWidth={gridIndent}
+    fill={'black'}
+    stroke={'black'}
+    strokeWidth={1}
+    tension={0.5}
   />
 */
