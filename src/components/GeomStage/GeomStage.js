@@ -35,8 +35,8 @@ export function GeomStage() {
     },
     {
       id: "1",
-      x: 22 * GRID_INDENT,
-      y: 5 * GRID_INDENT      
+      x: 20 * GRID_INDENT,
+      y: 3 * GRID_INDENT      
     },
     {
       id: "2",

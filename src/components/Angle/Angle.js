@@ -162,7 +162,24 @@ export function Angle({
         y={konvaLinePoints[3] - gridIndent}
         text={angle.toFixed(1)}
         fontSize={16}
-        fontFamily={'Calibri'}
+      />
+      <Text
+        x={konvaLinePoints[0] - 0.75 * gridIndent}
+        y={konvaLinePoints[1] - 0.5 * gridIndent}
+        text={'A'}
+        fontSize={16}
+      />
+      <Text
+        x={konvaLinePoints[2] - 0.25 * gridIndent}
+        y={konvaLinePoints[3] + 0.5 * gridIndent}
+        text={'B'}
+        fontSize={16}
+      />
+      <Text
+        x={konvaLinePoints[4] - 0.75 * gridIndent}
+        y={konvaLinePoints[5] - 0.5 * gridIndent}
+        text={'C'}
+        fontSize={16}
       />
     </>
   );
