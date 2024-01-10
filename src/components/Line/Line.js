@@ -1,4 +1,4 @@
-import { Circle, Line as KonvaLine } from 'react-konva';
+import { Circle, Text, Line as KonvaLine } from 'react-konva';
 import { useState } from 'react';
 
 function getKonvaLinePoints(linePoints, stageWidth, stageHeight) {
@@ -29,6 +29,14 @@ export function Line({
   const [konvaLinePoints, setKonvaLinePoints] = useState(
     getKonvaLinePoints(linePoints, stageWidth, stageHeight)
   );
+
+  const [labelPoints, setLabelPoints] = useState([{
+    x: linePoints[0].x,
+    y: linePoints[0].y
+  }, {
+    x: linePoints[1].x,
+    y: linePoints[1].y
+  }]);
 
   function handleDragEnd(event) {
     let dragEndX = event.target.x();
@@ -72,6 +80,8 @@ export function Line({
     setKonvaLinePoints(
       getKonvaLinePoints(newLinePoints, stageWidth, stageHeight)
     );
+
+    setLabelPoints(newLinePoints);
   }
 
   function handleDragMove(event) {
@@ -87,6 +97,8 @@ export function Line({
     setKonvaLinePoints(
       getKonvaLinePoints(updatedLinePoints, stageWidth, stageHeight)
     );
+
+    setLabelPoints(updatedLinePoints);
   }
 
   return (
@@ -110,6 +122,18 @@ export function Line({
         points={konvaLinePoints}
         stroke={'black'}
         strokeWidth={1}
+      />
+      <Text
+        x={labelPoints[0].x - 0.75 * gridIndent}
+        y={labelPoints[0].y - 0.5 * gridIndent}
+        text={'D'}
+        fontSize={16}
+      />
+      <Text
+        x={labelPoints[1].x - 0.75 * gridIndent}
+        y={labelPoints[1].y - 0.5 * gridIndent}
+        text={'E'}
+        fontSize={16}
       />
     </>
   );
