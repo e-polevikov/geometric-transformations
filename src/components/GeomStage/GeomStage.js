@@ -13,6 +13,7 @@ import { StageGrid } from '../StageGrid/StageGrid';
 import { Line } from '../Line/Line';
 import { Angle } from '../Angle/Angle';
 import { Transformations } from '../Transformations/Transformations';
+import { ActionControl } from '../ActionControl/ActionControl';
 
 import styles from './GeomStage.module.css';
 
@@ -58,6 +59,7 @@ export function GeomStage() {
           transformation={transformation}
           setTransformation={setTransformation}
         />
+        <ActionControl />
       </div>
 
       <div className={styles['stage']}>
