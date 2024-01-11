@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import { Stage, Layer } from 'react-konva';
 
 import {
@@ -15,6 +15,8 @@ import { Angle } from '../Angle/Angle';
 import { Transformations } from '../Transformations/Transformations';
 import { ActionControl } from '../ActionControl/ActionControl';
 import { Figure } from '../Figure/Figure';
+
+import { figureReducer } from '../../hooks/FigureReducer';
 
 import styles from './GeomStage.module.css';
 
@@ -50,13 +52,20 @@ export function GeomStage() {
     }
   ]);
 
+  const [figureState, dispatch] = useReducer(figureReducer, {
+    points: [[
+      GRID_INDENT, 29 * GRID_INDENT,
+      6 * GRID_INDENT, 29 * GRID_INDENT,
+      GRID_INDENT, 26 * GRID_INDENT
+    ]],
+    currentStateIdx: 0
+  });
+
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.ROTATE_CLOCKWISE);
-  const [action, setAction] = useState(null);
-  const [figurePoints, setFigurePoints] = useState([
-    GRID_INDENT, 29 * GRID_INDENT,
-    6 * GRID_INDENT, 29 * GRID_INDENT,
-    GRID_INDENT, 26 * GRID_INDENT
-  ]);
+
+  function handleAction(action) {
+    dispatch({type: action, transformation: transformation});
+  }
 
   return (
     <div className={styles['geom-stage']}>
@@ -66,7 +75,7 @@ export function GeomStage() {
           transformation={transformation}
           setTransformation={setTransformation}
         />
-        <ActionControl setAction={setAction} />
+        <ActionControl handleAction={handleAction}/>
       </div>
 
       <div className={styles['stage']}>
@@ -92,7 +101,7 @@ export function GeomStage() {
               gridIndent={GRID_INDENT}
             />
             <Figure
-              points={figurePoints}
+              points={figureState.points[figureState.currentStateIdx]}
             />
           </Layer>
         </Stage>
