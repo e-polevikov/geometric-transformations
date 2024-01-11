@@ -7,9 +7,12 @@ import {
   GRID_INDENT
 } from '../../constants/GeomStage';
 
+import { TRANSFORMATIONS } from '../../constants/Transformations';
+
 import { StageGrid } from '../StageGrid/StageGrid';
 import { Line } from '../Line/Line';
 import { Angle } from '../Angle/Angle';
+import { Transformations } from '../Transformations/Transformations';
 
 import styles from './GeomStage.module.css';
 
@@ -45,10 +48,16 @@ export function GeomStage() {
     }
   ]);
 
+  const [transformation, setTransformation] = useState(TRANSFORMATIONS.ROTATE_CLOCKWISE);
+
   return (
     <div className={styles['geom-stage']}>
       <div className={styles['transformations-panel']}>
         <h2 style={{textAlign: "center"}}>Преобразования</h2>
+        <Transformations
+          transformation={transformation}
+          setTransformation={setTransformation}
+        />
       </div>
 
       <div className={styles['stage']}>
