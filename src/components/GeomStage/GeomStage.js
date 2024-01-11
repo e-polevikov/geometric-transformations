@@ -50,6 +50,7 @@ export function GeomStage() {
   ]);
 
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.ROTATE_CLOCKWISE);
+  const [action, setAction] = useState(null);
 
   return (
     <div className={styles['geom-stage']}>
@@ -59,7 +60,7 @@ export function GeomStage() {
           transformation={transformation}
           setTransformation={setTransformation}
         />
-        <ActionControl />
+        <ActionControl setAction={setAction} />
       </div>
 
       <div className={styles['stage']}>
