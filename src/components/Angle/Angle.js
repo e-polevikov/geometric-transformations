@@ -160,7 +160,7 @@ export function Angle({
       <Text
         x={konvaLinePoints[2]}
         y={konvaLinePoints[3] - gridIndent}
-        text={angle.toFixed(1)}
+        text={angle.toFixed(1) + '\u00B0'}
         fontSize={16}
       />
       <Text
