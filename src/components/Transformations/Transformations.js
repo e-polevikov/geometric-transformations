@@ -40,7 +40,7 @@ export function Transformations({ transformation, setTransformation }) {
           onChange={(e) => setTransformation(e.target.value)}
         />
         <label htmlFor={TRANSFORMATIONS.REFLECT}>
-          Симметрия относительной прямой DE
+          Симметрия относительно прямой DE
         </label>
       </div>
     </>
