@@ -14,6 +14,7 @@ import { Line } from '../Line/Line';
 import { Angle } from '../Angle/Angle';
 import { Transformations } from '../Transformations/Transformations';
 import { ActionControl } from '../ActionControl/ActionControl';
+import { Figure } from '../Figure/Figure';
 
 import styles from './GeomStage.module.css';
 
@@ -51,6 +52,11 @@ export function GeomStage() {
 
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.ROTATE_CLOCKWISE);
   const [action, setAction] = useState(null);
+  const [figurePoints, setFigurePoints] = useState([
+    GRID_INDENT, 29 * GRID_INDENT,
+    6 * GRID_INDENT, 29 * GRID_INDENT,
+    GRID_INDENT, 26 * GRID_INDENT
+  ]);
 
   return (
     <div className={styles['geom-stage']}>
@@ -84,6 +90,9 @@ export function GeomStage() {
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}
+            />
+            <Figure
+              points={figurePoints}
             />
           </Layer>
         </Stage>
