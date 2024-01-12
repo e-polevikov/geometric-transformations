@@ -44,8 +44,6 @@ export function figureReducer(figureState, action) {
 
   let clockwise = (action.transformation === TRANSFORMATIONS.ROTATE_CLOCKWISE);
 
-  console.log(clockwise);
-
   let rotatedPoints = rotatePoints(
     updatedFigureState.points[updatedFigureState.currentStateIdx],
     action.anglePoints,
