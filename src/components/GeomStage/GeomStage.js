@@ -64,7 +64,12 @@ export function GeomStage() {
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.ROTATE_CLOCKWISE);
 
   function handleAction(action) {
-    dispatch({type: action, transformation: transformation});
+    dispatch({
+      type: action,
+      transformation: transformation,
+      linePoints: linePoints,
+      anglePoints: anglePoints
+    });
   }
 
   return (
