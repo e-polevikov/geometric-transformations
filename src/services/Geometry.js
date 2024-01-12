@@ -84,18 +84,22 @@ export function reflectPoints(points, linePoints) {
   return reflectedPoints;
 }
 
-export function rotatePoints(points, anglePoints) {
+export function rotatePoints(points, anglePoints, clockwise) {
   let rotatedPoints = JSON.parse(JSON.stringify(points));
   let angle = getAngle(anglePoints);
 
   angle *= Math.PI / 180;
 
+  if (!clockwise) {
+    angle *= -1;
+  }
+
   for (let i = 0; i < rotatedPoints.length; i += 2) {
     let x = rotatedPoints[i] - anglePoints[1].x;
     let y = rotatedPoints[i + 1] - anglePoints[1].y;
 
-    let xRotated = x * Math.cos(angle) - y * Math.sin(angle);
-    let yRotated = x * Math.sin(angle) + y * Math.cos(angle); 
+    let xRotated = x * Math.cos(angle) - y * Math.sin(angle) + anglePoints[1].x;
+    let yRotated = x * Math.sin(angle) + y * Math.cos(angle) + anglePoints[1].y; 
 
     rotatedPoints[i] = xRotated;
     rotatedPoints[i + 1] = yRotated;

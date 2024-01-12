@@ -42,9 +42,18 @@ export function figureReducer(figureState, action) {
     return updatedFigureState;
   }
 
-  if (action.transformation === TRANSFORMATIONS.ROTATE_CLOCKWISE) {
-    return updatedFigureState;
-  } else { // Rotate counter clockwise
-    return updatedFigureState;
-  }
+  let clockwise = (action.transformation === TRANSFORMATIONS.ROTATE_CLOCKWISE);
+
+  console.log(clockwise);
+
+  let rotatedPoints = rotatePoints(
+    updatedFigureState.points[updatedFigureState.currentStateIdx],
+    action.anglePoints,
+    clockwise
+  );
+
+  updatedFigureState.points.push(rotatedPoints);
+  updatedFigureState.currentStateIdx += 1;
+
+  return updatedFigureState;
 }

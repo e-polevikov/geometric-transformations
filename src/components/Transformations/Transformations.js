@@ -14,7 +14,7 @@ export function Transformations({ transformation, setTransformation }) {
           onChange={(e) => setTransformation(e.target.value)}
         />
         <label htmlFor={TRANSFORMATIONS.ROTATE_CLOCKWISE}>
-          Поворот относительно точки B на угол ABC против часовой стрелки
+          Поворот относительно точки B на угол ABC по часовой стрелке
         </label>
       </div>
 
@@ -27,7 +27,7 @@ export function Transformations({ transformation, setTransformation }) {
           onChange={(e) => setTransformation(e.target.value)}
         />
         <label htmlFor={TRANSFORMATIONS.ROTATE_COUNTER_CLOCKWISE}>
-          Поворот относительно точки B на угол ABC по часовой стрелке
+          Поворот относительно точки B на угол ABC против часовой стрелки
         </label>
       </div>
 
