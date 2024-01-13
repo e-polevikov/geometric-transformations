@@ -1,5 +1,5 @@
 import { useState, useReducer } from 'react';
-import { Stage, Layer } from 'react-konva';
+import { Stage, Layer, Line as KonvaLine } from 'react-konva';
 
 import {
   STAGE_WIDTH,
@@ -107,6 +107,16 @@ export function GeomStage() {
             />
             <Figure
               points={figureState.points[figureState.currentStateIdx]}
+            />
+            <KonvaLine
+              points={[
+                STAGE_WIDTH - 10 * GRID_INDENT, 5 * GRID_INDENT,
+                STAGE_WIDTH - 5 * GRID_INDENT, 5 * GRID_INDENT,
+                STAGE_WIDTH - 10 * GRID_INDENT, 2 * GRID_INDENT,
+              ]}
+              stroke={'green'}
+              strokeWidth={2}
+              closed={true}
             />
           </Layer>
         </Stage>
