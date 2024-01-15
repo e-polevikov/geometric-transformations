@@ -5,31 +5,31 @@ export const STAGE_HEIGHT = GRID_INDENT * 30;
 export const LINE_POINTS = [
   {
     id: "0",
-    x: 20 * GRID_INDENT,
-    y: 15 * GRID_INDENT
+    x: 7 * GRID_INDENT,
+    y: 13 * GRID_INDENT
   },
   {
     id: "1",
-    x: 25 * GRID_INDENT,
-    y: 20 * GRID_INDENT
+    x: 12 * GRID_INDENT,
+    y: 28 * GRID_INDENT
   }
 ];
 
 export const ANGLE_POINTS = [
   {
     id: "0",
-    x: 15 * GRID_INDENT,
-    y: 5 * GRID_INDENT
+    x: 2 * GRID_INDENT,
+    y: 18 * GRID_INDENT
   },
   {
     id: "1",
-    x: 20 * GRID_INDENT,
-    y: 3 * GRID_INDENT      
+    x: 4 * GRID_INDENT,
+    y: 22 * GRID_INDENT
   },
   {
     id: "2",
-    x: 22 * GRID_INDENT,
-    y: 8 * GRID_INDENT      
+    x: 5 * GRID_INDENT,
+    y: 17 * GRID_INDENT
   }
 ];
 

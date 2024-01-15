@@ -27,7 +27,7 @@ import styles from './GeomStage.module.css';
 export function GeomStage() {
   const [linePoints, setLinePoints] = useState(LINE_POINTS);
   const [anglePoints, setAnglePoints] = useState(ANGLE_POINTS);
-  const [transformation, setTransformation] = useState(TRANSFORMATIONS.ROTATE_CLOCKWISE);
+  const [transformation, setTransformation] = useState(TRANSFORMATIONS.REFLECT);
 
   const [figure, figureDispatch] = useReducer(figureReducer, {
     points: [INITIAL_FIGURE_STATE], currentStateIdx: 0

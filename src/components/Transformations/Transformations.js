@@ -8,13 +8,13 @@ export function Transformations({ transformation, setTransformation }) {
       <div className={styles['radio-btn']}>
         <input
           type={"radio"}
-          id={TRANSFORMATIONS.ROTATE_CLOCKWISE}
-          value={TRANSFORMATIONS.ROTATE_CLOCKWISE}
-          checked={transformation === TRANSFORMATIONS.ROTATE_CLOCKWISE}
+          id={TRANSFORMATIONS.REFLECT}
+          value={TRANSFORMATIONS.REFLECT}
+          checked={transformation === TRANSFORMATIONS.REFLECT}
           onChange={(e) => setTransformation(e.target.value)}
         />
-        <label htmlFor={TRANSFORMATIONS.ROTATE_CLOCKWISE}>
-          Поворот относительно точки B на угол ABC по часовой стрелке
+        <label htmlFor={TRANSFORMATIONS.REFLECT}>
+          Симметрия относительно прямой DE
         </label>
       </div>
 
@@ -34,13 +34,13 @@ export function Transformations({ transformation, setTransformation }) {
       <div className={styles['radio-btn']}>
         <input
           type={"radio"}
-          id={TRANSFORMATIONS.REFLECT}
-          value={TRANSFORMATIONS.REFLECT}
-          checked={transformation === TRANSFORMATIONS.REFLECT}
+          id={TRANSFORMATIONS.ROTATE_CLOCKWISE}
+          value={TRANSFORMATIONS.ROTATE_CLOCKWISE}
+          checked={transformation === TRANSFORMATIONS.ROTATE_CLOCKWISE}
           onChange={(e) => setTransformation(e.target.value)}
         />
-        <label htmlFor={TRANSFORMATIONS.REFLECT}>
-          Симметрия относительно прямой DE
+        <label htmlFor={TRANSFORMATIONS.ROTATE_CLOCKWISE}>
+          Поворот относительно точки B на угол ABC по часовой стрелке
         </label>
       </div>
     </>
