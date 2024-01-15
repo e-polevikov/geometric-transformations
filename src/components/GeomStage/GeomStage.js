@@ -20,6 +20,7 @@ import { ActionControl } from '../ActionControl/ActionControl';
 import { Figure } from '../Figure/Figure';
 
 import { figureReducer } from '../../hooks/FigureReducer';
+import { figureImageReducer } from '../../hooks/FigureImageReducer';
 
 import styles from './GeomStage.module.css';
 
@@ -31,6 +32,8 @@ export function GeomStage() {
   const [figure, figureDispatch] = useReducer(figureReducer, {
     points: [INITIAL_FIGURE_STATE], currentStateIdx: 0
   });
+
+  const [figureImage, figureImageDispatch] = useReducer(figureImageReducer, []);
 
   function handleAction(action) {
     figureDispatch({
