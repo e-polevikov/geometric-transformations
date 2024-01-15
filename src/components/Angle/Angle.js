@@ -32,8 +32,8 @@ export function Angle({
     let finalX = anglePoints[pointId].x;
     let finalY = anglePoints[pointId].y;
 
-    if (dragEndX > 0 && dragEndX < stageWidth &&
-        dragEndY > 0 && dragEndY < stageHeight
+    if (dragEndX >= 0 && dragEndX <= stageWidth &&
+        dragEndY >= 0 && dragEndY <= stageHeight
     ) {
       finalX = Math.round(dragEndX / gridIndent) * gridIndent;
       finalY = Math.round(dragEndY / gridIndent) * gridIndent;
@@ -75,6 +75,12 @@ export function Angle({
     let x = event.target.x();
     let y = event.target.y();
     let pointId = Number(event.target.id());
+
+    x = Math.round(x / gridIndent) * gridIndent;
+    y = Math.round(y / gridIndent) * gridIndent;
+
+    event.target.x(x);
+    event.target.y(y);
 
     let updatedAnglePoints = JSON.parse(JSON.stringify(anglePoints));
 
