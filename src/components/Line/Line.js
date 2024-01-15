@@ -109,6 +109,25 @@ export function Line({
 
   return (
     <>
+      <Text
+        x={labelPoints[0].x - 0.75 * gridIndent}
+        y={labelPoints[0].y - 0.5 * gridIndent}
+        text={'D'}
+        fontSize={16}
+      />
+      <Text
+        x={labelPoints[1].x - 0.75 * gridIndent}
+        y={labelPoints[1].y - 0.5 * gridIndent}
+        text={'E'}
+        fontSize={16}
+      />
+      <KonvaLine
+        id={"0"}
+        key={"0"}
+        points={konvaLinePoints}
+        stroke={'black'}
+        strokeWidth={1}
+      />
       {linePoints.map((point) => (
         <Circle
           id={point.id}
@@ -122,25 +141,6 @@ export function Line({
           onDragEnd={handleDragEnd}
         />
       ))}
-      <KonvaLine
-        id={"0"}
-        key={"0"}
-        points={konvaLinePoints}
-        stroke={'black'}
-        strokeWidth={1}
-      />
-      <Text
-        x={labelPoints[0].x - 0.75 * gridIndent}
-        y={labelPoints[0].y - 0.5 * gridIndent}
-        text={'D'}
-        fontSize={16}
-      />
-      <Text
-        x={labelPoints[1].x - 0.75 * gridIndent}
-        y={labelPoints[1].y - 0.5 * gridIndent}
-        text={'E'}
-        fontSize={16}
-      />
     </>
   );
 }

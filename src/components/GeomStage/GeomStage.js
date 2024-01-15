@@ -63,20 +63,6 @@ export function GeomStage() {
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}
             />
-            <Line
-              linePoints={linePoints}
-              setLinePoints={setLinePoints}
-              stageWidth={STAGE_WIDTH}
-              stageHeight={STAGE_HEIGHT}
-              gridIndent={GRID_INDENT}
-            />
-            <Angle
-              anglePoints={anglePoints}
-              setAnglePoints={setAnglePoints}
-              stageWidth={STAGE_WIDTH}
-              stageHeight={STAGE_HEIGHT}
-              gridIndent={GRID_INDENT}
-            />
             <Figure
               points={figure.points[figure.currentStateIdx]}
             />
@@ -89,6 +75,20 @@ export function GeomStage() {
               stroke={'green'}
               strokeWidth={2}
               closed={true}
+            />
+            <Angle
+              anglePoints={anglePoints}
+              setAnglePoints={setAnglePoints}
+              stageWidth={STAGE_WIDTH}
+              stageHeight={STAGE_HEIGHT}
+              gridIndent={GRID_INDENT}
+            />
+            <Line
+              linePoints={linePoints}
+              setLinePoints={setLinePoints}
+              stageWidth={STAGE_WIDTH}
+              stageHeight={STAGE_HEIGHT}
+              gridIndent={GRID_INDENT}
             />
           </Layer>
         </Stage>

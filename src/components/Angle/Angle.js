@@ -93,26 +93,6 @@ export function Angle({
 
   return (
     <>
-      {anglePoints.map((point) => (
-        <Circle
-          id={point.id}
-          key={point.id}
-          x={point.x}
-          y={point.y}
-          radius={gridIndent / 4}
-          fill={'black'}
-          draggable
-          onDragMove={handleDragMove}
-          onDragEnd={handleDragEnd}
-        />
-      ))}
-      <KonvaLine
-        id={"0"}
-        key={"0"}
-        points={konvaLinePoints}
-        stroke={'black'}
-        strokeWidth={1}
-      />
       <Text
         x={konvaLinePoints[2]}
         y={konvaLinePoints[3] - gridIndent}
@@ -137,6 +117,26 @@ export function Angle({
         text={'C'}
         fontSize={16}
       />
+      <KonvaLine
+        id={"0"}
+        key={"0"}
+        points={konvaLinePoints}
+        stroke={'black'}
+        strokeWidth={1}
+      />
+      {anglePoints.map((point) => (
+        <Circle
+          id={point.id}
+          key={point.id}
+          x={point.x}
+          y={point.y}
+          radius={gridIndent / 4}
+          fill={'black'}
+          draggable
+          onDragMove={handleDragMove}
+          onDragEnd={handleDragEnd}
+        />
+      ))}
     </>
   );
 }
