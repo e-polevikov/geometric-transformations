@@ -3,55 +3,55 @@ import { TRANSFORMATIONS } from "../constants/Transformations";
 
 import { reflectPoints, rotatePoints } from "../services/Geometry";
 
-export function figureReducer(figureState, action) {
-  let updatedFigureState = JSON.parse(JSON.stringify(figureState));
+export function figureReducer(figure, action) {
+  let updatedFigure = JSON.parse(JSON.stringify(figure));
 
   if (action.type === ACTIONS.UNDO) {
-    if (updatedFigureState.currentStateIdx > 0) {
-      updatedFigureState.currentStateIdx -= 1;
+    if (updatedFigure.currentStateIdx > 0) {
+      updatedFigure.currentStateIdx -= 1;
     }
 
-    return updatedFigureState;
+    return updatedFigure;
   }
 
   if (action.type === ACTIONS.REDO) {
-    if (updatedFigureState.currentStateIdx < updatedFigureState.points.length - 1) {
-      updatedFigureState.currentStateIdx += 1;
+    if (updatedFigure.currentStateIdx < updatedFigure.points.length - 1) {
+      updatedFigure.currentStateIdx += 1;
     }
 
-    return updatedFigureState;
+    return updatedFigure;
   }
 
   // Handling ACTIONS.APPLY
 
-  if (updatedFigureState.currentStateIdx !== updatedFigureState.points.length - 1) {
-    updatedFigureState.points = updatedFigureState.points.slice(
-      0, updatedFigureState.currentStateIdx + 1
+  if (updatedFigure.currentStateIdx !== updatedFigure.points.length - 1) {
+    updatedFigure.points = updatedFigure.points.slice(
+      0, updatedFigure.currentStateIdx + 1
     );
   }
 
   if (action.transformation === TRANSFORMATIONS.REFLECT) {
     let reflectedPoints = reflectPoints(
-      updatedFigureState.points[updatedFigureState.currentStateIdx],
+      updatedFigure.points[updatedFigure.currentStateIdx],
       action.linePoints
     );
 
-    updatedFigureState.points.push(reflectedPoints);
-    updatedFigureState.currentStateIdx += 1;
+    updatedFigure.points.push(reflectedPoints);
+    updatedFigure.currentStateIdx += 1;
 
-    return updatedFigureState;
+    return updatedFigure;
   }
 
   let clockwise = (action.transformation === TRANSFORMATIONS.ROTATE_CLOCKWISE);
 
   let rotatedPoints = rotatePoints(
-    updatedFigureState.points[updatedFigureState.currentStateIdx],
+    updatedFigure.points[updatedFigure.currentStateIdx],
     action.anglePoints,
     clockwise
   );
 
-  updatedFigureState.points.push(rotatedPoints);
-  updatedFigureState.currentStateIdx += 1;
+  updatedFigure.points.push(rotatedPoints);
+  updatedFigure.currentStateIdx += 1;
 
-  return updatedFigureState;
+  return updatedFigure;
 }

@@ -28,12 +28,12 @@ export function GeomStage() {
   const [anglePoints, setAnglePoints] = useState(ANGLE_POINTS);
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.ROTATE_CLOCKWISE);
 
-  const [figureState, dispatch] = useReducer(figureReducer, {
+  const [figure, figureDispatch] = useReducer(figureReducer, {
     points: [INITIAL_FIGURE_STATE], currentStateIdx: 0
   });
 
   function handleAction(action) {
-    dispatch({
+    figureDispatch({
       type: action,
       transformation: transformation,
       linePoints: linePoints,
@@ -75,7 +75,7 @@ export function GeomStage() {
               gridIndent={GRID_INDENT}
             />
             <Figure
-              points={figureState.points[figureState.currentStateIdx]}
+              points={figure.points[figure.currentStateIdx]}
             />
             <KonvaLine
               points={[
