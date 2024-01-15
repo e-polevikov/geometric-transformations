@@ -4,7 +4,10 @@ import { Stage, Layer, Line as KonvaLine } from 'react-konva';
 import {
   STAGE_WIDTH,
   STAGE_HEIGHT,
-  GRID_INDENT
+  GRID_INDENT,
+  LINE_POINTS,
+  ANGLE_POINTS,
+  INITIAL_FIGURE_STATE
 } from '../../constants/GeomStage';
 
 import { TRANSFORMATIONS } from '../../constants/Transformations';
@@ -21,47 +24,13 @@ import { figureReducer } from '../../hooks/FigureReducer';
 import styles from './GeomStage.module.css';
 
 export function GeomStage() {
-  const [linePoints, setLinePoints] = useState([
-    {
-      id: "0",
-      x: 20 * GRID_INDENT,
-      y: 15 * GRID_INDENT
-    },
-    {
-      id: "1",
-      x: 25 * GRID_INDENT,
-      y: 20 * GRID_INDENT      
-    }
-  ]);
-
-  const [anglePoints, setAnglePoints] = useState([
-    {
-      id: "0",
-      x: 15 * GRID_INDENT,
-      y: 5 * GRID_INDENT
-    },
-    {
-      id: "1",
-      x: 20 * GRID_INDENT,
-      y: 3 * GRID_INDENT      
-    },
-    {
-      id: "2",
-      x: 22 * GRID_INDENT,
-      y: 8 * GRID_INDENT      
-    }
-  ]);
+  const [linePoints, setLinePoints] = useState(LINE_POINTS);
+  const [anglePoints, setAnglePoints] = useState(ANGLE_POINTS);
+  const [transformation, setTransformation] = useState(TRANSFORMATIONS.ROTATE_CLOCKWISE);
 
   const [figureState, dispatch] = useReducer(figureReducer, {
-    points: [[
-      GRID_INDENT, 29 * GRID_INDENT,
-      6 * GRID_INDENT, 29 * GRID_INDENT,
-      GRID_INDENT, 26 * GRID_INDENT
-    ]],
-    currentStateIdx: 0
+    points: [INITIAL_FIGURE_STATE], currentStateIdx: 0
   });
-
-  const [transformation, setTransformation] = useState(TRANSFORMATIONS.ROTATE_CLOCKWISE);
 
   function handleAction(action) {
     dispatch({
