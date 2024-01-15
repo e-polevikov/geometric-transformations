@@ -41,6 +41,10 @@ export function GeomStage() {
     reflectPoints(FIGURE_POINTS, linePoints)
   );
 
+  function handleTransformationChange(event) {
+    setTransformation(event.target.value);
+  }
+
   function handleAction(action) {
     figureDispatch({
       type: action,
@@ -56,9 +60,11 @@ export function GeomStage() {
         <h2 style={{textAlign: "center"}}>Преобразования</h2>
         <Transformations
           transformation={transformation}
-          setTransformation={setTransformation}
+          onChange={handleTransformationChange}
         />
-        <ActionControl handleAction={handleAction}/>
+        <ActionControl
+          onClick={handleAction}
+        />
       </div>
 
       <div className={styles['stage']}>
