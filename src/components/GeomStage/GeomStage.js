@@ -7,7 +7,7 @@ import {
   GRID_INDENT,
   LINE_POINTS,
   ANGLE_POINTS,
-  INITIAL_FIGURE_STATE
+  FIGURE_POINTS
 } from '../../constants/GeomStage';
 
 import { TRANSFORMATIONS } from '../../constants/Transformations';
@@ -18,9 +18,12 @@ import { Angle } from '../Angle/Angle';
 import { Transformations } from '../Transformations/Transformations';
 import { ActionControl } from '../ActionControl/ActionControl';
 import { Figure } from '../Figure/Figure';
+import { FigureImage } from '../Figure/FigureImage';
 
 import { figureReducer } from '../../hooks/FigureReducer';
 import { figureImageReducer } from '../../hooks/FigureImageReducer';
+
+import { reflectPoints } from '../../services/Geometry';
 
 import styles from './GeomStage.module.css';
 
@@ -30,10 +33,13 @@ export function GeomStage() {
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.REFLECT);
 
   const [figure, figureDispatch] = useReducer(figureReducer, {
-    points: [INITIAL_FIGURE_STATE], currentStateIdx: 0
+    points: [FIGURE_POINTS], currentStateIdx: 0
   });
 
-  const [figureImage, figureImageDispatch] = useReducer(figureImageReducer, []);
+  const [figureImage, figureImageDispatch] = useReducer(
+    figureImageReducer,
+    reflectPoints(FIGURE_POINTS, linePoints)
+  );
 
   function handleAction(action) {
     figureDispatch({
@@ -65,6 +71,9 @@ export function GeomStage() {
             />
             <Figure
               points={figure.points[figure.currentStateIdx]}
+            />
+            <FigureImage
+              points={figureImage}
             />
             <KonvaLine
               points={[

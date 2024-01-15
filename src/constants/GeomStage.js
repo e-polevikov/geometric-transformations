@@ -33,7 +33,7 @@ export const ANGLE_POINTS = [
   }
 ];
 
-export const INITIAL_FIGURE_STATE = [
+export const FIGURE_POINTS = [
   GRID_INDENT, 29 * GRID_INDENT,
   6 * GRID_INDENT, 29 * GRID_INDENT,
   GRID_INDENT, 26 * GRID_INDENT
