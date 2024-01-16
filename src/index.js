@@ -17,3 +17,10 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+/*
+TODO:
+- Number of operations, path length, square intersection
+- Stage boundaries?
+- Refactoring
+*/
