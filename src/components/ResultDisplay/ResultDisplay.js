@@ -1,10 +1,10 @@
 
 
-export function ResultDisplay({ numTransformations }) {
+export function ResultDisplay({ sumOfDistances, numTransformations }) {
   return (
     <>
       <h2 style={{textAlign: "center"}}>Результат</h2>
-      <p>Разность координат: ...</p>
+      <p>Сумма квадратов расстояний: {sumOfDistances}</p>
       <p>Длина пути: ...</p>
       <p>Число преобразований: {numTransformations}</p>
     </>

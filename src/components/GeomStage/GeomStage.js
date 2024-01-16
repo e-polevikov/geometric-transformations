@@ -7,7 +7,8 @@ import {
   GRID_INDENT,
   LINE_POINTS,
   ANGLE_POINTS,
-  FIGURE_POINTS
+  FIGURE_POINTS,
+  TARGET_FIGURE_POINTS
 } from '../../constants/GeomStage';
 
 import { TRANSFORMATIONS } from '../../constants/Transformations';
@@ -25,7 +26,7 @@ import { ResultDisplay } from '../ResultDisplay/ResultDisplay';
 import { figureReducer } from '../../hooks/FigureReducer';
 import { figureImageReducer } from '../../hooks/FigureImageReducer';
 
-import { reflectPoints } from '../../services/Geometry';
+import { reflectPoints, getSumOfDistances } from '../../services/Geometry';
 
 import styles from './GeomStage.module.css';
 
@@ -38,10 +39,9 @@ export function GeomStage() {
     points: [FIGURE_POINTS], currentStateIdx: 0
   });
 
-  const [figureImage, figureImageDispatch] = useReducer(
-    figureImageReducer,
-    reflectPoints(FIGURE_POINTS, linePoints)
-  );
+  const [figureImage, figureImageDispatch] = useReducer(figureImageReducer, {
+    points: reflectPoints(FIGURE_POINTS, linePoints)
+  });
 
   function handleTransformationChange(event) {
     let newTransformation = event.target.value;
@@ -67,7 +67,7 @@ export function GeomStage() {
     let figurePoints;
 
     if (action === ACTIONS.APPLY) {
-      figurePoints = figureImage;
+      figurePoints = figureImage.points;
     }
 
     if (action === ACTIONS.UNDO) {
@@ -126,6 +126,10 @@ export function GeomStage() {
           onClick={handleActionApply}
         />
         <ResultDisplay
+          sumOfDistances={getSumOfDistances(
+            figure.points[figure.currentStateIdx],
+            TARGET_FIGURE_POINTS, GRID_INDENT)
+          }
           numTransformations={figure.currentStateIdx}
         />
       </div>
@@ -142,14 +146,10 @@ export function GeomStage() {
               points={figure.points[figure.currentStateIdx]}
             />
             <FigureImage
-              points={figureImage}
+              points={figureImage.points}
             />
             <KonvaLine
-              points={[
-                STAGE_WIDTH - 10 * GRID_INDENT, 5 * GRID_INDENT,
-                STAGE_WIDTH - 5 * GRID_INDENT, 5 * GRID_INDENT,
-                STAGE_WIDTH - 10 * GRID_INDENT, 2 * GRID_INDENT,
-              ]}
+              points={TARGET_FIGURE_POINTS}
               stroke={'green'}
               strokeWidth={2}
               closed={true}

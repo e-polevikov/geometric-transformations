@@ -1,4 +1,22 @@
 
+export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
+  let numPoints = figure1Points.length / 2;
+  let sumOfDistances = 0;
+
+  for (let i = 0; i < numPoints; i++) {
+    let x1 = figure1Points[2 * i];
+    let y1 = figure1Points[2 * i + 1];
+    let x2 = figure2Points[2 * i];
+    let y2 = figure2Points[2 * i + 1];
+
+    sumOfDistances += Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2);
+  }
+
+  sumOfDistances /= Math.pow(gridIndent, 2);
+
+  return sumOfDistances.toFixed(3);
+}
+
 export function getAngle(anglePoints) {
   let point1 = anglePoints[0];
   let point2 = anglePoints[1];
