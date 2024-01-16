@@ -11,6 +11,7 @@ import {
 } from '../../constants/GeomStage';
 
 import { TRANSFORMATIONS } from '../../constants/Transformations';
+import { ACTIONS } from '../../constants/Action';
 
 import { StageGrid } from '../StageGrid/StageGrid';
 import { Line } from '../Line/Line';
@@ -57,6 +58,35 @@ export function GeomStage() {
   function handleActionApply(action) {
     figureDispatch({
       type: action,
+      transformation: transformation,
+      linePoints: linePoints,
+      anglePoints: anglePoints
+    });
+
+    let figurePoints;
+
+    if (action === ACTIONS.APPLY) {
+      figurePoints = figureImage;
+    }
+
+    if (action === ACTIONS.UNDO) {
+      if (figure.currentStateIdx === 0) {
+        return;
+      }
+
+      figurePoints = figure.points[figure.currentStateIdx - 1];
+    }
+
+    if (action === ACTIONS.REDO) {
+      if (figure.currentStateIdx === figure.points.length - 1) {
+        return;
+      }
+
+      figurePoints = figure.points[figure.currentStateIdx + 1];
+    }
+
+    figureImageDispatch({
+      figurePoints: figurePoints,
       transformation: transformation,
       linePoints: linePoints,
       anglePoints: anglePoints
