@@ -20,6 +20,7 @@ import { Transformations } from '../Transformations/Transformations';
 import { ActionControl } from '../ActionControl/ActionControl';
 import { Figure } from '../Figure/Figure';
 import { FigureImage } from '../Figure/FigureImage';
+import { ResultDisplay } from '../ResultDisplay/ResultDisplay';
 
 import { figureReducer } from '../../hooks/FigureReducer';
 import { figureImageReducer } from '../../hooks/FigureImageReducer';
@@ -123,6 +124,9 @@ export function GeomStage() {
         />
         <ActionControl
           onClick={handleActionApply}
+        />
+        <ResultDisplay
+          numTransformations={figure.currentStateIdx}
         />
       </div>
 
