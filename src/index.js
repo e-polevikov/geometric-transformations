@@ -20,7 +20,7 @@ root.render(
 
 /*
 TODO:
-- Number of operations, path length, square intersection
+- Path length
 - Minor UI improvements (highlighting)
 - Stage boundaries?
 - Refactoring
