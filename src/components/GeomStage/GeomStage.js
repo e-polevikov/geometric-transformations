@@ -26,7 +26,11 @@ import { ResultDisplay } from '../ResultDisplay/ResultDisplay';
 import { figureReducer } from '../../hooks/FigureReducer';
 import { figureImageReducer } from '../../hooks/FigureImageReducer';
 
-import { reflectPoints, getSumOfDistances } from '../../services/Geometry';
+import {
+  reflectPoints,
+  getSumOfDistances,
+  getCentroidCoordinates
+} from '../../services/Geometry';
 
 import styles from './GeomStage.module.css';
 
@@ -144,6 +148,8 @@ export function GeomStage() {
             />
             <Figure
               points={figure.points[figure.currentStateIdx]}
+              centroid={getCentroidCoordinates(figure.points[figure.currentStateIdx])}
+              gridIndent={GRID_INDENT}
             />
             <FigureImage
               points={figureImage.points}

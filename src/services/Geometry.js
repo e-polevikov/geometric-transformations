@@ -1,4 +1,16 @@
 
+export function getCentroidCoordinates(trianglePoints) {
+  let x = 0;
+  let y = 0;
+
+  for (let i = 0; i < trianglePoints.length / 2; i++) {
+    x += trianglePoints[2 * i];
+    y += trianglePoints[2 * i + 1];
+  }
+
+  return {x: x / 3, y: y / 3};
+}
+
 export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
   let numPoints = figure1Points.length / 2;
   let sumOfDistances = 0;
