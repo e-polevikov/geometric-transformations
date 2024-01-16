@@ -8,7 +8,7 @@ export function getCentroidCoordinates(trianglePoints) {
     y += trianglePoints[2 * i + 1];
   }
 
-  return {x: x / 3, y: y / 3};
+  return [x / 3, y / 3];
 }
 
 export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
