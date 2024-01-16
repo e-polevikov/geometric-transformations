@@ -42,10 +42,17 @@ export function GeomStage() {
   );
 
   function handleTransformationChange(event) {
-    setTransformation(event.target.value);
+    let newTransformation = event.target.value;
+    setTransformation(newTransformation);
+    figureImageDispatch({
+      figurePoints: figure.points[figure.currentStateIdx],
+      transformation: newTransformation,
+      linePoints: linePoints,
+      anglePoints: anglePoints
+    });
   }
 
-  function handleAction(action) {
+  function handleActionApplying(action) {
     figureDispatch({
       type: action,
       transformation: transformation,
@@ -63,7 +70,7 @@ export function GeomStage() {
           onChange={handleTransformationChange}
         />
         <ActionControl
-          onClick={handleAction}
+          onClick={handleActionApplying}
         />
       </div>
 
