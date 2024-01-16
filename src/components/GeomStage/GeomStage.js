@@ -43,7 +43,9 @@ export function GeomStage() {
 
   function handleTransformationChange(event) {
     let newTransformation = event.target.value;
+
     setTransformation(newTransformation);
+
     figureImageDispatch({
       figurePoints: figure.points[figure.currentStateIdx],
       transformation: newTransformation,
@@ -52,13 +54,33 @@ export function GeomStage() {
     });
   }
 
-  function handleActionApplying(action) {
+  function handleActionApply(action) {
     figureDispatch({
       type: action,
       transformation: transformation,
       linePoints: linePoints,
       anglePoints: anglePoints
     });
+  }
+
+  function handleLinePointChange(currentLinePoints) {
+    if (transformation === TRANSFORMATIONS.REFLECT) {
+      figureImageDispatch({
+        figurePoints: figure.points[figure.currentStateIdx],
+        transformation: transformation,
+        linePoints: currentLinePoints
+      });
+    }
+  }
+
+  function handleAnglePointChange(currentAnglePoints) {
+    if (transformation !== TRANSFORMATIONS.REFLECT) {
+      figureImageDispatch({
+        figurePoints: figure.points[figure.currentStateIdx],
+        transformation: transformation,
+        anglePoints: currentAnglePoints
+      });
+    }   
   }
 
   return (
@@ -70,7 +92,7 @@ export function GeomStage() {
           onChange={handleTransformationChange}
         />
         <ActionControl
-          onClick={handleActionApplying}
+          onClick={handleActionApply}
         />
       </div>
 
@@ -101,6 +123,7 @@ export function GeomStage() {
             <Angle
               anglePoints={anglePoints}
               setAnglePoints={setAnglePoints}
+              onPointChange={handleAnglePointChange}
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}
@@ -108,6 +131,7 @@ export function GeomStage() {
             <Line
               linePoints={linePoints}
               setLinePoints={setLinePoints}
+              onPointChange={handleLinePointChange}
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}

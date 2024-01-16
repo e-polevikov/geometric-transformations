@@ -14,6 +14,7 @@ function getKonvaLinePoints(anglePoints) {
 export function Angle({
   anglePoints,
   setAnglePoints,
+  onPointChange,
   stageWidth,
   stageHeight,
   gridIndent
@@ -69,6 +70,7 @@ export function Angle({
     setAnglePoints(newAnglePoints);
     setKonvaLinePoints(getKonvaLinePoints(newAnglePoints));
     setAngle(getAngle(newAnglePoints));
+    onPointChange(newAnglePoints);
   }
 
   function handleDragMove(event) {
@@ -89,6 +91,7 @@ export function Angle({
 
     setKonvaLinePoints(getKonvaLinePoints(updatedAnglePoints));
     setAngle(getAngle(updatedAnglePoints));
+    onPointChange(updatedAnglePoints);
   }
 
   return (

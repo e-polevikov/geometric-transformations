@@ -22,6 +22,7 @@ function getKonvaLinePoints(linePoints, stageWidth, stageHeight) {
 export function Line({
   linePoints,
   setLinePoints,
+  onPointChange,
   stageWidth,
   stageHeight,
   gridIndent
@@ -82,6 +83,8 @@ export function Line({
     );
 
     setLabelPoints(newLinePoints);
+
+    onPointChange(newLinePoints);
   }
 
   function handleDragMove(event) {
@@ -105,6 +108,8 @@ export function Line({
     );
 
     setLabelPoints(updatedLinePoints);
+
+    onPointChange(updatedLinePoints);
   }
 
   return (
