@@ -1,11 +1,15 @@
 
 
-export function ResultDisplay({ sumOfDistances, numTransformations }) {
+export function ResultDisplay({
+  sumOfDistances,
+  pathLength,
+  numTransformations
+}) {
   return (
     <>
       <h2 style={{textAlign: "center"}}>Результат</h2>
       <p>Сумма квадратов расстояний: {sumOfDistances}</p>
-      <p>Длина пути: ...</p>
+      <p>Длина пути: {pathLength}</p>
       <p>Число преобразований: {numTransformations}</p>
     </>
   );

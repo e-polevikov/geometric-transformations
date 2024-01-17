@@ -1,4 +1,23 @@
 
+export function getPathLength(triangles, gridIndent) {
+  let centroids = triangles.map((trianglePoints) => {
+    return getCentroidCoordinates(trianglePoints);
+  });
+
+  let pathLength = 0;
+
+  for (let i = 0; i < centroids.length - 1; i++) {
+    let [x1, y1] = centroids[i];
+    let [x2, y2] = centroids[i + 1];
+
+    pathLength += Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+  }
+
+  pathLength /= gridIndent;
+
+  return pathLength.toFixed(3);
+}
+
 export function getCentroidCoordinates(trianglePoints) {
   let x = 0;
   let y = 0;

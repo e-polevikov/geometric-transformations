@@ -29,6 +29,7 @@ import { figureImageReducer } from '../../hooks/FigureImageReducer';
 import {
   reflectPoints,
   getSumOfDistances,
+  getPathLength
 } from '../../services/Geometry';
 
 import styles from './GeomStage.module.css';
@@ -132,6 +133,10 @@ export function GeomStage() {
           sumOfDistances={getSumOfDistances(
             figure.points[figure.currentStateIdx],
             TARGET_FIGURE_POINTS, GRID_INDENT)
+          }
+          pathLength={getPathLength(
+            figure.points.slice(0, figure.currentStateIdx + 1),
+            GRID_INDENT)
           }
           numTransformations={figure.currentStateIdx}
         />
