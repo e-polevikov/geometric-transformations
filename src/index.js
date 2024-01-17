@@ -20,8 +20,7 @@ root.render(
 
 /*
 TODO:
-- Path length
 - Minor UI improvements (highlighting)
-- Stage boundaries?
 - Refactoring
+- Stage boundaries?
 */
