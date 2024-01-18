@@ -2,13 +2,13 @@ import styles from './ActionControl.module.css';
 
 import { ACTIONS } from '../../constants/Action';
 
-export function ActionControl({ onClick }) {
+export function ActionControl({ handleClick }) {
   return (
     <div className={styles['action-control']}>
       <div className={styles['apply-btn-container']}>
         <button
           className={styles['apply-btn']}
-          onClick={() => onClick(ACTIONS.APPLY)}
+          onClick={() => handleClick(ACTIONS.APPLY, {})}
         >
           Применить
         </button>
@@ -16,13 +16,13 @@ export function ActionControl({ onClick }) {
       <div className={styles['undo-redo-btn-container']}>
         <button
           className={styles['undo-redo-btn']}
-          onClick={() => onClick(ACTIONS.UNDO)}
+          onClick={() => handleClick(ACTIONS.UNDO, {})}
         >
           {'\u21B6'}
         </button>
         <button
           className={styles['undo-redo-btn']}
-          onClick={() => onClick(ACTIONS.REDO)}
+          onClick={() => handleClick(ACTIONS.REDO, {})}
         >
           {'\u21B7'}
         </button>

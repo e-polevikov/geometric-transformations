@@ -2,15 +2,15 @@ import { Line, Circle } from 'react-konva';
 
 import { getCentroidCoordinates } from '../../services/Geometry';
 
-export function Figure({ figurePoints, gridIndent }) {
-  let centroids = figurePoints.flatMap((points) => {
-    return getCentroidCoordinates(points);
+export function Figure({ points, gridIndent }) {
+  let centroids = points.flatMap((pts) => {
+    return getCentroidCoordinates(pts);
   });
 
   return (
     <>
       <Line
-        points={figurePoints[figurePoints.length - 1]}
+        points={points[points.length - 1]}
         stroke={'black'}
         strokeWidth={1.5}
         closed={true}

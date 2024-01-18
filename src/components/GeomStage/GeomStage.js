@@ -1,5 +1,5 @@
 import { useState, useReducer } from 'react';
-import { Stage, Layer, Line as KonvaLine } from 'react-konva';
+import { Stage, Layer } from 'react-konva';
 
 import {
   STAGE_WIDTH,
@@ -7,12 +7,10 @@ import {
   GRID_INDENT,
   LINE_POINTS,
   ANGLE_POINTS,
-  FIGURE_POINTS,
-  TARGET_FIGURE_POINTS
+  FIGURE, TARGET_FIGURE
 } from '../../constants/GeomStage';
 
 import { TRANSFORMATIONS } from '../../constants/Transformations';
-import { ACTIONS } from '../../constants/Action';
 
 import { StageGrid } from '../StageGrid/StageGrid';
 import { Line } from '../Line/Line';
@@ -21,16 +19,13 @@ import { Transformations } from '../Transformations/Transformations';
 import { ActionControl } from '../ActionControl/ActionControl';
 import { Figure } from '../Figure/Figure';
 import { FigureImage } from '../Figure/FigureImage';
+import { TargetFigure } from '../Figure/TargetFigure';
 import { ResultDisplay } from '../ResultDisplay/ResultDisplay';
 
 import { figureReducer } from '../../hooks/FigureReducer';
 import { figureImageReducer } from '../../hooks/FigureImageReducer';
 
-import {
-  reflectPoints,
-  getSumOfDistances,
-  getPathLength
-} from '../../services/Geometry';
+import { reflectPoints } from '../../services/Geometry';
 
 import styles from './GeomStage.module.css';
 
@@ -40,105 +35,57 @@ export function GeomStage() {
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.REFLECT);
 
   const [figure, figureDispatch] = useReducer(figureReducer, {
-    points: [FIGURE_POINTS], currentStateIdx: 0
+    points: [FIGURE.POINTS], currentStateIdx: 0
   });
 
   const [figureImage, figureImageDispatch] = useReducer(figureImageReducer, {
-    points: reflectPoints(FIGURE_POINTS, linePoints)
+    points: reflectPoints(FIGURE.POINTS, linePoints)
   });
 
-  function handleTransformationChange(event) {
-    let newTransformation = event.target.value;
+  const targetFigure = {points: TARGET_FIGURE.POINTS};
 
-    setTransformation(newTransformation);
-
-    figureImageDispatch({
-      figurePoints: figure.points[figure.currentStateIdx],
-      transformation: newTransformation,
-      linePoints: linePoints,
-      anglePoints: anglePoints
-    });
-  }
-
-  function handleActionApply(action) {
-    figureDispatch({
-      type: action,
-      transformation: transformation,
-      linePoints: linePoints,
-      anglePoints: anglePoints
-    });
-
-    let figurePoints;
-
-    if (action === ACTIONS.APPLY) {
-      figurePoints = figureImage.points;
-    }
-
-    if (action === ACTIONS.UNDO) {
-      if (figure.currentStateIdx === 0) {
-        return;
-      }
-
-      figurePoints = figure.points[figure.currentStateIdx - 1];
-    }
-
-    if (action === ACTIONS.REDO) {
-      if (figure.currentStateIdx === figure.points.length - 1) {
-        return;
-      }
-
-      figurePoints = figure.points[figure.currentStateIdx + 1];
-    }
-
-    figureImageDispatch({
-      figurePoints: figurePoints,
-      transformation: transformation,
-      linePoints: linePoints,
-      anglePoints: anglePoints
-    });
-  }
-
-  function handleLinePointChange(currentLinePoints) {
-    if (transformation === TRANSFORMATIONS.REFLECT) {
-      figureImageDispatch({
-        figurePoints: figure.points[figure.currentStateIdx],
+  function handleAction(type, states) {
+    let action = {
+      type: type,
+      states: {
+        figure: figure,
         transformation: transformation,
-        linePoints: currentLinePoints
-      });
-    }
-  }
+        linePoints: linePoints,
+        anglePoints: anglePoints
+      }
+    };
 
-  function handleAnglePointChange(currentAnglePoints) {
-    if (transformation !== TRANSFORMATIONS.REFLECT) {
-      figureImageDispatch({
-        figurePoints: figure.points[figure.currentStateIdx],
-        transformation: transformation,
-        anglePoints: currentAnglePoints
-      });
-    }   
+    if (states.transformation) {
+      action.states.transformation = states.transformation;
+    }
+
+    if (states.linePoints) {
+      action.states.linePoints = states.linePoints;
+    }
+
+    if (states.anglePoints) {
+      action.states.anglePoints = states.anglePoints;
+    }
+
+    figureDispatch(action);
+    figureImageDispatch(action);
   }
 
   return (
     <div className={styles['geom-stage']}>
-      <div className={styles['transformations-panel']}>
-        <h2 style={{textAlign: "center"}}>Преобразования</h2>
+      <div className={styles['panel']}>
         <Transformations
           transformation={transformation}
-          onChange={handleTransformationChange}
+          setTransformation={setTransformation}
+          handleChange={handleAction}
         />
         <ActionControl
-          onClick={handleActionApply}
+          handleClick={handleAction}
         />
         <ResultDisplay
-          sumOfDistances={getSumOfDistances(
-            figure.points[figure.currentStateIdx],
-            TARGET_FIGURE_POINTS, GRID_INDENT)
-          }
-          pathLength={getPathLength(
-            figure.points.slice(0, figure.currentStateIdx + 1),
-            GRID_INDENT)
-          }
-          numTransformations={figure.currentStateIdx}
+          figure={figure}
+          targetFigure={targetFigure}
+          gridIndent={GRID_INDENT}
         />
       </div>
 
@@ -150,24 +97,21 @@ export function GeomStage() {
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}
             />
-            <KonvaLine
-              points={TARGET_FIGURE_POINTS}
-              stroke={'green'}
-              strokeWidth={1.5}
-              closed={true}
+            <TargetFigure
+              points={targetFigure.points}
             />
             <FigureImage
               points={figureImage.points}
             />
             <Figure
-              figurePoints={figure.points.slice(0, figure.currentStateIdx + 1)}
+              points={figure.points.slice(0, figure.currentStateIdx + 1)}
               gridIndent={GRID_INDENT}
             />
             <Angle
               anglePoints={anglePoints}
               setAnglePoints={setAnglePoints}
               isSelected={transformation !== TRANSFORMATIONS.REFLECT}
-              onPointChange={handleAnglePointChange}
+              handlePointMove={handleAction}
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}
@@ -176,7 +120,7 @@ export function GeomStage() {
               linePoints={linePoints}
               setLinePoints={setLinePoints}
               isSelected={transformation === TRANSFORMATIONS.REFLECT}
-              onPointChange={handleLinePointChange}
+              handlePointMove={handleAction}
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}

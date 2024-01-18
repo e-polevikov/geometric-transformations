@@ -1,6 +1,8 @@
 import { Circle, Text, Line as KonvaLine } from 'react-konva';
 import { useState } from 'react';
 
+import { ACTIONS } from '../../constants/Action';
+
 function getKonvaLinePoints(linePoints, stageWidth, stageHeight) {
   let x1 = linePoints[0].x;
   let y1 = linePoints[0].y;
@@ -23,7 +25,7 @@ export function Line({
   linePoints,
   setLinePoints,
   isSelected,
-  onPointChange,
+  handlePointMove,
   stageWidth,
   stageHeight,
   gridIndent
@@ -101,7 +103,7 @@ export function Line({
 
     setLabelPoints(newLinePoints);
 
-    onPointChange(newLinePoints);
+    handlePointMove(ACTIONS.MOVE_LINE_POINT, {linePoints: newLinePoints});
   }
 
   function handleDragMove(event) {
@@ -126,7 +128,7 @@ export function Line({
 
     setLabelPoints(updatedLinePoints);
 
-    onPointChange(updatedLinePoints);
+    handlePointMove(ACTIONS.MOVE_LINE_POINT, {linePoints: updatedLinePoints});
   }
 
   return (

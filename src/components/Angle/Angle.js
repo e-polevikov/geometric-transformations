@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 import { getAngle } from '../../services/Geometry';
 
+import { ACTIONS } from '../../constants/Action';
+
 function getKonvaLinePoints(anglePoints) {
   return [
     anglePoints[0].x, anglePoints[0].y,
@@ -15,7 +17,7 @@ export function Angle({
   anglePoints,
   setAnglePoints,
   isSelected,
-  onPointChange,
+  handlePointMove,
   stageWidth,
   stageHeight,
   gridIndent
@@ -87,7 +89,8 @@ export function Angle({
     setAnglePoints(newAnglePoints);
     setKonvaLinePoints(getKonvaLinePoints(newAnglePoints));
     setAngle(getAngle(newAnglePoints));
-    onPointChange(newAnglePoints);
+
+    handlePointMove(ACTIONS.MOVE_ANGLE_POINT, {anglePoints: newAnglePoints});
   }
 
   function handleDragMove(event) {
@@ -108,7 +111,7 @@ export function Angle({
 
     setKonvaLinePoints(getKonvaLinePoints(updatedAnglePoints));
     setAngle(getAngle(updatedAnglePoints));
-    onPointChange(updatedAnglePoints);
+    handlePointMove(ACTIONS.MOVE_ANGLE_POINT, {anglePoints: updatedAnglePoints});
   }
 
   return (

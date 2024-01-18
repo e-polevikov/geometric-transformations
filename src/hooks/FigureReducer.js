@@ -1,9 +1,11 @@
 import { ACTIONS } from "../constants/Action";
 import { TRANSFORMATIONS } from "../constants/Transformations";
+import { STAGE_WIDTH, STAGE_HEIGHT } from "../constants/GeomStage";
 
 import {
   reflectPoints,
-  rotatePoints
+  rotatePoints,
+  figureIsOutOfStageBoundaries
 } from "../services/Geometry";
 
 export function figureReducer(figure, action) {
@@ -25,18 +27,24 @@ export function figureReducer(figure, action) {
     return updatedFigure;
   }
 
-  // Handling ACTIONS.APPLY
-
-  if (updatedFigure.currentStateIdx !== updatedFigure.points.length - 1) {
-    updatedFigure.points = updatedFigure.points.slice(
-      0, updatedFigure.currentStateIdx + 1
-    );
+  if (action.type !== ACTIONS.APPLY) {
+    return updatedFigure;
   }
 
-  if (action.transformation === TRANSFORMATIONS.REFLECT) {
+  if (action.states.transformation === TRANSFORMATIONS.REFLECT) {
     let reflectedPoints = reflectPoints(
       updatedFigure.points[updatedFigure.currentStateIdx],
-      action.linePoints
+      action.states.linePoints
+    );
+
+    if (figureIsOutOfStageBoundaries(
+      reflectedPoints, STAGE_WIDTH, STAGE_HEIGHT
+    )) {
+      return updatedFigure;
+    }
+
+    updatedFigure.points = updatedFigure.points.slice(
+      0, updatedFigure.currentStateIdx + 1
     );
 
     updatedFigure.points.push(reflectedPoints);
@@ -45,12 +53,22 @@ export function figureReducer(figure, action) {
     return updatedFigure;
   }
 
-  let clockwise = (action.transformation === TRANSFORMATIONS.ROTATE_CLOCKWISE);
+  let clockwise = (action.states.transformation === TRANSFORMATIONS.ROTATE_CLOCKWISE);
 
   let rotatedPoints = rotatePoints(
     updatedFigure.points[updatedFigure.currentStateIdx],
-    action.anglePoints,
+    action.states.anglePoints,
     clockwise
+  );
+
+  if (figureIsOutOfStageBoundaries(
+    rotatedPoints, STAGE_WIDTH, STAGE_HEIGHT
+  )) {
+    return updatedFigure;
+  }
+
+  updatedFigure.points = updatedFigure.points.slice(
+    0, updatedFigure.currentStateIdx + 1
   );
 
   updatedFigure.points.push(rotatedPoints);

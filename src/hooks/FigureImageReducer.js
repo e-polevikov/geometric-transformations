@@ -1,13 +1,49 @@
+import { ACTIONS } from "../constants/Action";
 import { TRANSFORMATIONS } from "../constants/Transformations";
+import { STAGE_WIDTH, STAGE_HEIGHT } from "../constants/GeomStage";
 
-import { reflectPoints, rotatePoints } from "../services/Geometry";
+import {
+  reflectPoints,
+  rotatePoints,
+  figureIsOutOfStageBoundaries
+} from "../services/Geometry";
 
 export function figureImageReducer(figureImage, action) {
-  if (action.transformation === TRANSFORMATIONS.REFLECT) {
-    return {points: reflectPoints(action.figurePoints, action.linePoints)};
+  let figure = action.states.figure;
+  let points = figure.points[figure.currentStateIdx];
+
+  if (action.type === ACTIONS.APPLY) {
+    points = figureImage.points;
+
+    if (figureIsOutOfStageBoundaries(
+      points, STAGE_WIDTH, STAGE_HEIGHT
+    )) {
+      return figureImage;
+    }
   }
 
-  let clockwise = (action.transformation === TRANSFORMATIONS.ROTATE_CLOCKWISE);
+  if (action.type === ACTIONS.UNDO) {
+    if (figure.currentStateIdx === 0) {
+      return figureImage;
+    }
 
-  return {points: rotatePoints(action.figurePoints, action.anglePoints, clockwise)};
+    points = figure.points[figure.currentStateIdx - 1];
+  }
+
+  if (action.type === ACTIONS.REDO) {
+    if (figure.currentStateIdx === figure.points.length - 1) {
+      return figureImage;
+    }
+
+    points = figure.points[figure.currentStateIdx + 1];
+  }
+
+  if (action.states.transformation === TRANSFORMATIONS.REFLECT) {
+    points = reflectPoints(points, action.states.linePoints);
+  } else {
+    let clockwise = (action.states.transformation === TRANSFORMATIONS.ROTATE_CLOCKWISE);
+    points = rotatePoints(points, action.states.anglePoints, clockwise);
+  }
+
+  return { points: points };
 }

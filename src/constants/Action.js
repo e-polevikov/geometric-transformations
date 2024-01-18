@@ -1,5 +1,8 @@
 export const ACTIONS = {
   APPLY: 0,
   UNDO: 1,
-  REDO: 2
+  REDO: 2,
+  SET_TRANSFORMATION: 3,
+  MOVE_LINE_POINT: 4,
+  MOVE_ANGLE_POINT: 5
 };

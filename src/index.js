@@ -20,7 +20,6 @@ root.render(
 
 /*
 TODO:
-- Stage boundaries
 - Levels, Description
-- Area of intersection?
+- Area of intersection
 */
