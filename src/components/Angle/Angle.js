@@ -14,6 +14,7 @@ function getKonvaLinePoints(anglePoints) {
 export function Angle({
   anglePoints,
   setAnglePoints,
+  isSelected,
   onPointChange,
   stageWidth,
   stageHeight,
@@ -141,7 +142,7 @@ export function Angle({
         key={"0"}
         points={konvaLinePoints}
         stroke={'black'}
-        strokeWidth={1}
+        strokeWidth={isSelected ? 1.5 : 0.75}
       />
       {anglePoints.map((point) => (
         <Circle

@@ -153,7 +153,7 @@ export function GeomStage() {
             <KonvaLine
               points={TARGET_FIGURE_POINTS}
               stroke={'green'}
-              strokeWidth={1}
+              strokeWidth={1.5}
               closed={true}
             />
             <FigureImage
@@ -166,6 +166,7 @@ export function GeomStage() {
             <Angle
               anglePoints={anglePoints}
               setAnglePoints={setAnglePoints}
+              isSelected={transformation !== TRANSFORMATIONS.REFLECT}
               onPointChange={handleAnglePointChange}
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}
@@ -174,6 +175,7 @@ export function GeomStage() {
             <Line
               linePoints={linePoints}
               setLinePoints={setLinePoints}
+              isSelected={transformation === TRANSFORMATIONS.REFLECT}
               onPointChange={handleLinePointChange}
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}

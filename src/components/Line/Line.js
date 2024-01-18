@@ -22,6 +22,7 @@ function getKonvaLinePoints(linePoints, stageWidth, stageHeight) {
 export function Line({
   linePoints,
   setLinePoints,
+  isSelected,
   onPointChange,
   stageWidth,
   stageHeight,
@@ -147,7 +148,7 @@ export function Line({
         key={"0"}
         points={konvaLinePoints}
         stroke={'black'}
-        strokeWidth={1}
+        strokeWidth={isSelected ? 1.5 : 0.75}
       />
       {linePoints.map((point) => (
         <Circle

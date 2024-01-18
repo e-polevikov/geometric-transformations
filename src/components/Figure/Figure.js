@@ -12,7 +12,7 @@ export function Figure({ figurePoints, gridIndent }) {
       <Line
         points={figurePoints[figurePoints.length - 1]}
         stroke={'black'}
-        strokeWidth={2}
+        strokeWidth={1.5}
         closed={true}
       />
       <Line
