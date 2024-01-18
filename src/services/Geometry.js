@@ -40,10 +40,10 @@ export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
     let x2 = figure2Points[2 * i];
     let y2 = figure2Points[2 * i + 1];
 
-    sumOfDistances += Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2);
+    sumOfDistances += Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
   }
 
-  sumOfDistances /= Math.pow(gridIndent, 2);
+  sumOfDistances /= gridIndent;
 
   return sumOfDistances.toFixed(3);
 }
