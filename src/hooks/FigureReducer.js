@@ -1,7 +1,10 @@
 import { ACTIONS } from "../constants/Action";
 import { TRANSFORMATIONS } from "../constants/Transformations";
 
-import { reflectPoints, rotatePoints } from "../services/Geometry";
+import {
+  reflectPoints,
+  rotatePoints
+} from "../services/Geometry";
 
 export function figureReducer(figure, action) {
   let updatedFigure = JSON.parse(JSON.stringify(figure));

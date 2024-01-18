@@ -1,4 +1,17 @@
 
+export function figureIsOutOfStageBoundaries(figurePoints, stageWidth, stageHeight) {
+  for (let i = 0; i < figurePoints.length / 2; i++) {
+    let x = figurePoints[2 * i];
+    let y = figurePoints[2 * i + 1];
+
+    if (x >= 0 && x <= stageWidth && y >= 0 && y <= stageHeight) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export function getPathLength(triangles, gridIndent) {
   let centroids = triangles.map((trianglePoints) => {
     return getCentroidCoordinates(trianglePoints);

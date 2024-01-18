@@ -20,8 +20,7 @@ root.render(
 
 /*
 TODO:
-- Minor UI improvements (highlighting)
 - Stage boundaries
-- Levels
-- Description
+- Levels, Description
+- Area of intersection?
 */
