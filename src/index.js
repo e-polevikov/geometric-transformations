@@ -22,5 +22,7 @@ root.render(
 TODO:
 - Minor UI improvements (highlighting)
 - Refactoring
-- Stage boundaries?
+- Stage boundaries
+- Levels
+- Description
 */
