@@ -8,7 +8,7 @@ export function ResultDisplay({
   return (
     <>
       <h2 style={{textAlign: "center"}}>Результат</h2>
-      <p>Сумма квадратов расстояний: {sumOfDistances}</p>
+      <p>Сумма расстояний: {sumOfDistances}</p>
       <p>Длина пути: {pathLength}</p>
       <p>Число преобразований: {numTransformations}</p>
     </>

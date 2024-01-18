@@ -25,6 +25,21 @@ export function Angle({
 
   const [angle, setAngle] = useState(getAngle(anglePoints));
 
+  function handleDragStart(event) {
+    let newAnglePoints = anglePoints.map((point) => {
+      if (point.id === event.target.id()) {
+        return {
+          ...point,
+          isDragging: true
+        }
+      }
+
+      return point;
+    });
+
+    setAnglePoints(newAnglePoints);
+  }
+
   function handleDragEnd(event) {
     let dragEndX = event.target.x();
     let dragEndY = event.target.y();
@@ -60,7 +75,8 @@ export function Angle({
         return {
           id: point.id,
           x: finalX,
-          y: finalY
+          y: finalY,
+          isDragging: false
         }
       }
 
@@ -133,9 +149,12 @@ export function Angle({
           key={point.id}
           x={point.x}
           y={point.y}
-          radius={gridIndent / 4}
+          radius={gridIndent / 5}
           fill={'black'}
+          stroke={point.isDragging ? 'blue' : null}
+          strokeWidth={3}
           draggable
+          onDragStart={handleDragStart}
           onDragMove={handleDragMove}
           onDragEnd={handleDragEnd}
         />

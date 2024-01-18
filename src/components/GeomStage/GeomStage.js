@@ -150,18 +150,18 @@ export function GeomStage() {
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}
             />
-            <Figure
-              figurePoints={figure.points.slice(0, figure.currentStateIdx + 1)}
-              gridIndent={GRID_INDENT}
+            <KonvaLine
+              points={TARGET_FIGURE_POINTS}
+              stroke={'green'}
+              strokeWidth={1}
+              closed={true}
             />
             <FigureImage
               points={figureImage.points}
             />
-            <KonvaLine
-              points={TARGET_FIGURE_POINTS}
-              stroke={'green'}
-              strokeWidth={2}
-              closed={true}
+            <Figure
+              figurePoints={figure.points.slice(0, figure.currentStateIdx + 1)}
+              gridIndent={GRID_INDENT}
             />
             <Angle
               anglePoints={anglePoints}

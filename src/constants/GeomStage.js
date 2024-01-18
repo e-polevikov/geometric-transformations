@@ -6,12 +6,14 @@ export const LINE_POINTS = [
   {
     id: "0",
     x: 7 * GRID_INDENT,
-    y: 13 * GRID_INDENT
+    y: 13 * GRID_INDENT,
+    isDragging: false
   },
   {
     id: "1",
     x: 12 * GRID_INDENT,
-    y: 28 * GRID_INDENT
+    y: 28 * GRID_INDENT,
+    isDragging: false
   }
 ];
 
@@ -19,17 +21,20 @@ export const ANGLE_POINTS = [
   {
     id: "0",
     x: 2 * GRID_INDENT,
-    y: 18 * GRID_INDENT
+    y: 18 * GRID_INDENT,
+    isDragging: false
   },
   {
     id: "1",
     x: 4 * GRID_INDENT,
-    y: 22 * GRID_INDENT
+    y: 22 * GRID_INDENT,
+    isDragging: false
   },
   {
     id: "2",
     x: 5 * GRID_INDENT,
-    y: 17 * GRID_INDENT
+    y: 17 * GRID_INDENT,
+    isDragging: false
   }
 ];
 
