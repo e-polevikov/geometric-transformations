@@ -8,7 +8,7 @@ import {
   LINE_POINTS,
   ANGLE_POINTS,
   FIGURE, TARGET_FIGURE
-} from '../../constants/GeomStage';
+} from '../../constants/GeomStage1';
 
 import { TRANSFORMATIONS } from '../../constants/Transformations';
 

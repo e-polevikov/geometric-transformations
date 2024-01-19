@@ -43,7 +43,7 @@ export function ResultDisplay({
         <tr>
           <td style={tableDataStyle}>Сумма расстояний</td>
           <td style={tableDataStyle}>Длина пути</td>
-          <td style={tableDataStyle}>Преобра- зования</td>
+          <td style={tableDataStyle}>Преобразования</td>
         </tr>
         <tr>
           <td style={tableDataStyle}>{sumOfDistances}</td>
