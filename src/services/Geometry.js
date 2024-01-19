@@ -12,9 +12,9 @@ export function figureIsOutOfStageBoundaries(figurePoints, stageWidth, stageHeig
   return true;
 }
 
-export function getPathLength(triangles, gridIndent) {
-  let centroids = triangles.map((trianglePoints) => {
-    return getCentroidCoordinates(trianglePoints);
+export function getPathLength(figurePoints, gridIndent) {
+  let centroids = figurePoints.map((points) => {
+    return getCentroidCoordinates(points);
   });
 
   let pathLength = 0;
@@ -31,16 +31,17 @@ export function getPathLength(triangles, gridIndent) {
   return pathLength.toFixed(3);
 }
 
-export function getCentroidCoordinates(trianglePoints) {
+export function getCentroidCoordinates(points) {
   let x = 0;
   let y = 0;
+  let numPoints = points.length / 2;
 
-  for (let i = 0; i < trianglePoints.length / 2; i++) {
-    x += trianglePoints[2 * i];
-    y += trianglePoints[2 * i + 1];
+  for (let i = 0; i < numPoints; i++) {
+    x += points[2 * i];
+    y += points[2 * i + 1];
   }
 
-  return [x / 3, y / 3];
+  return [x / numPoints, y / numPoints];
 }
 
 export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
