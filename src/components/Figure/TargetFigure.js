@@ -5,7 +5,9 @@ export function TargetFigure({ points }) {
     <>
       <Line
         points={points}
-        stroke={'green'}
+        stroke={'black'}
+        fill={'red'}
+        opacity={'0.25'}
         strokeWidth={1.5}
         closed={true}
       />
