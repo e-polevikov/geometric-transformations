@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/geometric-transformations/static/css/main.db8a8c84.css",
-    "main.js": "/geometric-transformations/static/js/main.7530bd8c.js",
+    "main.js": "/geometric-transformations/static/js/main.acf44775.js",
     "index.html": "/geometric-transformations/index.html",
     "main.db8a8c84.css.map": "/geometric-transformations/static/css/main.db8a8c84.css.map",
-    "main.7530bd8c.js.map": "/geometric-transformations/static/js/main.7530bd8c.js.map"
+    "main.acf44775.js.map": "/geometric-transformations/static/js/main.acf44775.js.map"
   },
   "entrypoints": [
     "static/css/main.db8a8c84.css",
-    "static/js/main.7530bd8c.js"
+    "static/js/main.acf44775.js"
   ]
 }
