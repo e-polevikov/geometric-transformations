@@ -7,7 +7,7 @@ export function TargetFigure({ points }) {
         points={points}
         stroke={'black'}
         fill={'red'}
-        opacity={'0.25'}
+        opacity={0.25}
         strokeWidth={1.5}
         closed={true}
       />

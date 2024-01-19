@@ -13,7 +13,7 @@ export function Figure({ points, gridIndent }) {
         points={points[points.length - 1]}
         stroke={'black'}
         fill={'blue'}
-        opacity={'0.25'}
+        opacity={0.25}
         strokeWidth={1.5}
         closed={true}
       />

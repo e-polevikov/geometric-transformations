@@ -1,3 +1,4 @@
+import * as PolyBool from 'polybooljs';
 
 export function figureIsOutOfStageBoundaries(figurePoints, stageWidth, stageHeight) {
   for (let i = 0; i < figurePoints.length / 2; i++) {
@@ -44,7 +45,30 @@ export function getCentroidCoordinates(points) {
   return [x / numPoints, y / numPoints];
 }
 
+function unflattenPoints(points) {
+  let unflattenedPoints = [];
+
+  for (let i = 0; i < points.length / 2; i++) {
+    let x = points[2 * i];
+    let y = points[2 * i + 1];
+    unflattenedPoints.push([x, y]);
+  }
+
+  return unflattenedPoints;
+}
+
 export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
+  
+  let intersection = PolyBool.intersect({
+    regions: [unflattenPoints(figure1Points)],
+    inverted: false
+  }, {
+    regions: [unflattenPoints(figure2Points)],
+    inverted: false
+  });
+
+  // console.log(intersection.regions);
+
   let numPoints = figure1Points.length / 2;
   let sumOfDistances = 0;
 
