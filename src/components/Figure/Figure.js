@@ -1,8 +1,18 @@
 import { Line, Circle } from 'react-konva';
 
+import { ACTIONS } from '../../constants/Action';
+
 import { getCentroidCoordinates } from '../../services/Geometry';
 
-export function Figure({ points, gridIndent }) {
+export function Figure({
+  figureId,
+  selectedFigureId,
+  setSelectedFigureId,
+  points,
+  gridIndent,
+  fillColor,
+  handleClick,
+}) {
   let centroids = points.flatMap((pts) => {
     return getCentroidCoordinates(pts);
   });
@@ -12,10 +22,14 @@ export function Figure({ points, gridIndent }) {
       <Line
         points={points[points.length - 1]}
         stroke={'black'}
-        fill={'blue'}
+        fill={fillColor}
         opacity={0.25}
-        strokeWidth={1.5}
+        strokeWidth={figureId === selectedFigureId ? 7.5 : 1.5}
         closed={true}
+        onClick={() => {
+          setSelectedFigureId(figureId);
+          handleClick(ACTIONS.SELECT_FIGURE, {selectedFigureId: figureId});
+        }}
       />
       <Line
         points={centroids}

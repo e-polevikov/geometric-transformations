@@ -33,22 +33,28 @@ export function GeomStage1() {
   const [linePoints, setLinePoints] = useState(LINE_POINTS);
   const [anglePoints, setAnglePoints] = useState(ANGLE_POINTS);
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.REFLECT);
+  const [selectedFigureId, setSelectedFigureId] = useState(1);
 
-  const [figure, figureDispatch] = useReducer(figureReducer, {
-    points: [FIGURE.POINTS], currentStateIdx: 0
+  const [figure1, figureDispatch1] = useReducer(figureReducer, {
+    id: 1, points: [FIGURE.POINTS], currentStateIdx: 0
+  });
+
+  const [figure2, figureDispatch2] = useReducer(figureReducer, {
+    id: 2, points: [TARGET_FIGURE.POINTS], currentStateIdx: 0
   });
 
   const [figureImage, figureImageDispatch] = useReducer(figureImageReducer, {
     points: reflectPoints(FIGURE.POINTS, linePoints)
   });
 
-  const targetFigure = {points: TARGET_FIGURE.POINTS};
+  // const targetFigure = {points: TARGET_FIGURE.POINTS};
 
   function handleAction(type, states) {
     let action = {
       type: type,
       states: {
-        figure: figure,
+        figures: [figure1, figure2],
+        selectedFigureId: selectedFigureId,
         transformation: transformation,
         linePoints: linePoints,
         anglePoints: anglePoints
@@ -67,7 +73,12 @@ export function GeomStage1() {
       action.states.anglePoints = states.anglePoints;
     }
 
-    figureDispatch(action);
+    if (states.selectedFigureId) {
+      action.states.selectedFigureId = states.selectedFigureId;
+    }
+
+    figureDispatch1(action);
+    figureDispatch2(action);
     figureImageDispatch(action);
   }
 
@@ -83,8 +94,7 @@ export function GeomStage1() {
           handleClick={handleAction}
         />
         <ResultDisplay
-          figure={figure}
-          targetFigure={targetFigure}
+          figures={[figure1, figure2]}
           gridIndent={GRID_INDENT}
         />
       </div>
@@ -97,15 +107,26 @@ export function GeomStage1() {
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}
             />
-            <TargetFigure
-              points={targetFigure.points}
-            />
             <FigureImage
               points={figureImage.points}
             />
             <Figure
-              points={figure.points.slice(0, figure.currentStateIdx + 1)}
+              figureId={1}
+              selectedFigureId={selectedFigureId}
+              setSelectedFigureId={setSelectedFigureId}
+              points={figure1.points.slice(0, figure1.currentStateIdx + 1)}
               gridIndent={GRID_INDENT}
+              fillColor={'blue'}
+              handleClick={handleAction}
+            />
+            <Figure
+              figureId={2}
+              selectedFigureId={selectedFigureId}
+              setSelectedFigureId={setSelectedFigureId}
+              points={figure2.points.slice(0, figure2.currentStateIdx + 1)}
+              gridIndent={GRID_INDENT}
+              fillColor={'red'}
+              handleClick={handleAction}
             />
             <Angle
               anglePoints={anglePoints}

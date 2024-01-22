@@ -30,7 +30,7 @@ export function getPathLength(figurePoints, gridIndent) {
 
   pathLength /= gridIndent;
 
-  return pathLength.toFixed(3);
+  return pathLength;
 }
 
 export function getCentroidCoordinates(points) {
@@ -92,7 +92,7 @@ export function getAreaIntersectionRatio(figure1Points, figure2Points, gridInden
 
   let intersectionRatio = intersectionArea / figureArea;
 
-  return intersectionRatio.toFixed(3);
+  return intersectionRatio;
 }
 
 export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
@@ -110,7 +110,7 @@ export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
 
   sumOfDistances /= gridIndent;
 
-  return sumOfDistances.toFixed(3);
+  return sumOfDistances;
 }
 
 export function getAngle(anglePoints) {

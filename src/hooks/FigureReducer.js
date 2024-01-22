@@ -11,6 +11,10 @@ import {
 export function figureReducer(figure, action) {
   let updatedFigure = JSON.parse(JSON.stringify(figure));
 
+  if (updatedFigure.id !== action.states.selectedFigureId) {
+    return updatedFigure;
+  }
+
   if (action.type === ACTIONS.UNDO) {
     if (updatedFigure.currentStateIdx > 0) {
       updatedFigure.currentStateIdx -= 1;

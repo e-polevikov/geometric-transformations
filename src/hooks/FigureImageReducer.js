@@ -9,7 +9,7 @@ import {
 } from "../services/Geometry";
 
 export function figureImageReducer(figureImage, action) {
-  let figure = action.states.figure;
+  let figure = action.states.figures[action.states.selectedFigureId - 1];
   let points = figure.points[figure.currentStateIdx];
 
   if (action.type === ACTIONS.APPLY) {
