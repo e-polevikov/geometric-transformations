@@ -1,6 +1,7 @@
 import {
   getSumOfDistances,
-  getPathLength
+  getPathLength,
+  getAreaIntersectionRatio
 } from "../../services/Geometry";
 
 export function ResultDisplay({
@@ -11,6 +12,11 @@ export function ResultDisplay({
   const sumOfDistances = getSumOfDistances(
     figure.points[figure.currentStateIdx],
     targetFigure.points, gridIndent
+  );
+
+  const areaIntersectionRatio = getAreaIntersectionRatio(
+    figure.points[figure.currentStateIdx],
+    targetFigure.points, gridIndent    
   );
 
   const pathLength = getPathLength(
@@ -41,12 +47,12 @@ export function ResultDisplay({
       <h2 style={{textAlign: "center"}}>Результат</h2>
       <table style={tableStyle}>
         <tr>
-          <td style={tableDataStyle}>Сумма расстояний</td>
-          <td style={tableDataStyle}>Длина пути</td>
-          <td style={tableDataStyle}>Преобразования</td>
+          <td style={tableDataStyle}>S</td>
+          <td style={tableDataStyle}>L</td>
+          <td style={tableDataStyle}>T</td>
         </tr>
         <tr>
-          <td style={tableDataStyle}>{sumOfDistances}</td>
+          <td style={tableDataStyle}>{areaIntersectionRatio}</td>
           <td style={tableDataStyle}>{pathLength}</td>
           <td style={tableDataStyle}>{numTransformations}</td>
         </tr>

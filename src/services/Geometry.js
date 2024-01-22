@@ -1,4 +1,5 @@
 import * as PolyBool from 'polybooljs';
+import * as geometric from 'geometric'
 
 export function figureIsOutOfStageBoundaries(figurePoints, stageWidth, stageHeight) {
   for (let i = 0; i < figurePoints.length / 2; i++) {
@@ -57,8 +58,19 @@ function unflattenPoints(points) {
   return unflattenedPoints;
 }
 
-export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
-  
+function normalizePoints(points, gridIndent) {
+  let normalizedPoints = [];
+
+  for (let i = 0; i < points.length; i++) {
+    let normalizedX = points[i][0] / gridIndent;
+    let normalizedY = points[i][1] / gridIndent;
+    normalizedPoints.push([normalizedX, normalizedY]);
+  }
+
+  return normalizedPoints;
+}
+
+export function getAreaIntersectionRatio(figure1Points, figure2Points, gridIndent) {
   let intersection = PolyBool.intersect({
     regions: [unflattenPoints(figure1Points)],
     inverted: false
@@ -67,8 +79,23 @@ export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
     inverted: false
   });
 
-  // console.log(intersection.regions);
+  let intersectionArea = 0;
 
+  for (let i = 0; i < intersection.regions.length; i++) {
+    let polygon = normalizePoints(intersection.regions[i], gridIndent);
+    intersectionArea += geometric.polygonArea(polygon);
+  }
+
+  let figureArea = geometric.polygonArea(
+    normalizePoints(unflattenPoints(figure1Points), gridIndent)
+  );
+
+  let intersectionRatio = intersectionArea / figureArea;
+
+  return intersectionRatio.toFixed(3);
+}
+
+export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
   let numPoints = figure1Points.length / 2;
   let sumOfDistances = 0;
 
