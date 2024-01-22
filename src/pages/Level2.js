@@ -3,7 +3,7 @@ import { GeomStage2 } from '../components/GeomStage/GeomStage2';
 export function Level2() {
   return (
     <>
-      <GeomStage2 />
+      <h2>Level2</h2>
     </>
   );
 }
