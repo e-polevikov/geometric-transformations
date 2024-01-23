@@ -6,7 +6,7 @@ import {
   reflectPoints,
   rotatePoints,
   figureIsOutOfStageBoundaries
-} from "../services/Geometry";
+} from "../services/GeomTransformations";
 
 export function figureImageReducer(figureImage, action) {
   let figure = action.states.figures[action.states.selectedFigureId - 1];

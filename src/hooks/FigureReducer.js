@@ -6,7 +6,7 @@ import {
   reflectPoints,
   rotatePoints,
   figureIsOutOfStageBoundaries
-} from "../services/Geometry";
+} from "../services/GeomTransformations";
 
 export function figureReducer(figure, action) {
   let updatedFigure = JSON.parse(JSON.stringify(figure));

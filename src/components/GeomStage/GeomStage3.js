@@ -25,7 +25,7 @@ import { ResultDisplay } from '../ResultDisplay/ResultDisplay';
 import { figureReducer } from '../../hooks/FigureReducer';
 import { figureImageReducer } from '../../hooks/FigureImageReducer';
 
-import { reflectPoints } from '../../services/Geometry';
+import { reflectPoints } from '../../services/GeomTransformations';
 
 import styles from './GeomStage.module.css';
 

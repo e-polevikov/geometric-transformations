@@ -2,7 +2,7 @@ import {
   getSumOfDistances,
   getPathLength,
   getAreaIntersectionRatio
-} from "../../services/Geometry";
+} from '../../services/GeomMetrics';
 
 export function ResultDisplay({
   figures, gridIndent

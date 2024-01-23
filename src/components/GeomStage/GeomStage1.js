@@ -6,48 +6,42 @@ import {
   STAGE_HEIGHT,
   GRID_INDENT,
   LINE_POINTS,
-  ANGLE_POINTS,
-  FIGURE, TARGET_FIGURE
+  FIGURE1, FIGURE2
 } from '../../constants/GeomStage1';
 
 import { TRANSFORMATIONS } from '../../constants/Transformations';
 
 import { StageGrid } from '../StageGrid/StageGrid';
 import { Line } from '../Line/Line';
-import { Angle } from '../Angle/Angle';
 import { Transformations1 } from '../Transformations/Transformations1';
 import { ActionControl } from '../ActionControl/ActionControl';
 import { Figure } from '../Figure/Figure';
 import { FigureImage } from '../Figure/FigureImage';
-import { TargetFigure } from '../Figure/TargetFigure';
 import { ResultDisplay } from '../ResultDisplay/ResultDisplay';
 
 import { figureReducer } from '../../hooks/FigureReducer';
 import { figureImageReducer } from '../../hooks/FigureImageReducer';
 
-import { reflectPoints } from '../../services/Geometry';
+import { reflectPoints } from '../../services/GeomTransformations';
 
 import styles from './GeomStage.module.css';
 
 export function GeomStage1() {
   const [linePoints, setLinePoints] = useState(LINE_POINTS);
-  const [anglePoints, setAnglePoints] = useState(ANGLE_POINTS);
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.REFLECT);
   const [selectedFigureId, setSelectedFigureId] = useState(1);
 
   const [figure1, figureDispatch1] = useReducer(figureReducer, {
-    id: 1, points: [FIGURE.POINTS], currentStateIdx: 0
+    id: 1, points: [FIGURE1.POINTS], currentStateIdx: 0
   });
 
   const [figure2, figureDispatch2] = useReducer(figureReducer, {
-    id: 2, points: [TARGET_FIGURE.POINTS], currentStateIdx: 0
+    id: 2, points: [FIGURE2.POINTS], currentStateIdx: 0
   });
 
   const [figureImage, figureImageDispatch] = useReducer(figureImageReducer, {
-    points: reflectPoints(FIGURE.POINTS, linePoints)
+    points: reflectPoints(FIGURE1.POINTS, linePoints)
   });
-
-  // const targetFigure = {points: TARGET_FIGURE.POINTS};
 
   function handleAction(type, states) {
     let action = {
@@ -56,8 +50,7 @@ export function GeomStage1() {
         figures: [figure1, figure2],
         selectedFigureId: selectedFigureId,
         transformation: transformation,
-        linePoints: linePoints,
-        anglePoints: anglePoints
+        linePoints: linePoints
       }
     };
 
@@ -67,10 +60,6 @@ export function GeomStage1() {
 
     if (states.linePoints) {
       action.states.linePoints = states.linePoints;
-    }
-
-    if (states.anglePoints) {
-      action.states.anglePoints = states.anglePoints;
     }
 
     if (states.selectedFigureId) {

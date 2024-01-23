@@ -2,7 +2,7 @@ import { Line, Circle } from 'react-konva';
 
 import { ACTIONS } from '../../constants/Action';
 
-import { getCentroidCoordinates } from '../../services/Geometry';
+import { getCentroidCoordinates } from '../../services/GeomMetrics';
 
 export function Figure({
   figureId,

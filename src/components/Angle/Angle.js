@@ -1,7 +1,7 @@
 import { Circle, Text, Line as KonvaLine } from 'react-konva';
 import { useState } from 'react';
 
-import { getAngle } from '../../services/Geometry';
+import { getAngle } from '../../services/GeomTransformations';
 
 import { ACTIONS } from '../../constants/Action';
 

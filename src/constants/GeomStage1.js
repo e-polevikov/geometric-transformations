@@ -20,25 +20,7 @@ export const LINE_POINTS = [{
   }
 ];
 
-export const ANGLE_POINTS = [{
-    id: "0",
-    x: 3 * GRID_INDENT,
-    y: 1 * GRID_INDENT,
-    isDragging: false
-  }, {
-    id: "1",
-    x: 7 * GRID_INDENT,
-    y: 2 * GRID_INDENT,
-    isDragging: false
-  }, {
-    id: "2",
-    x: 6 * GRID_INDENT,
-    y: 4 * GRID_INDENT,
-    isDragging: false
-  }
-];
-
-export const FIGURE = { POINTS: [
+export const FIGURE1 = { POINTS: [
   1 * GRID_INDENT, 11 * GRID_INDENT,
   1 * GRID_INDENT, 13 * GRID_INDENT,
   4 * GRID_INDENT, 13 * GRID_INDENT,
@@ -47,7 +29,7 @@ export const FIGURE = { POINTS: [
   2 * GRID_INDENT, 11 * GRID_INDENT
 ]};
 
-export const TARGET_FIGURE = { POINTS: [
+export const FIGURE2 = { POINTS: [
   STAGE_WIDTH - 4 * GRID_INDENT, 1 * GRID_INDENT,
   STAGE_WIDTH - 4 * GRID_INDENT, 2 * GRID_INDENT,
   STAGE_WIDTH - 2 * GRID_INDENT, 2 * GRID_INDENT,
