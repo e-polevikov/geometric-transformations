@@ -38,11 +38,11 @@ export function GeomStage1() {
   });
 
   const [figure1, figureDispatch1] = useReducer(figureReducer, {
-    id: 1, points: [FIGURE1.POINTS], currentStateIdx: 0
+    id: 1, points: [FIGURE1.POINTS], stateIdx: 0
   });
 
   const [figure2, figureDispatch2] = useReducer(figureReducer, {
-    id: 2, points: [FIGURE2.POINTS], currentStateIdx: 0
+    id: 2, points: [FIGURE2.POINTS], stateIdx: 0
   });
 
   const [figureImage, figureImageDispatch] = useReducer(figureImageReducer, {
@@ -108,7 +108,7 @@ export function GeomStage1() {
               figureId={1}
               selectedFigureId={selectedFigureId}
               setSelectedFigureId={setSelectedFigureId}
-              points={figure1.points.slice(0, figure1.currentStateIdx + 1)}
+              points={figure1.points.slice(0, figure1.stateIdx + 1)}
               gridIndent={GRID_INDENT}
               fillColor={'blue'}
               handleClick={handleAction}
@@ -117,7 +117,7 @@ export function GeomStage1() {
               figureId={2}
               selectedFigureId={selectedFigureId}
               setSelectedFigureId={setSelectedFigureId}
-              points={figure2.points.slice(0, figure2.currentStateIdx + 1)}
+              points={figure2.points.slice(0, figure2.stateIdx + 1)}
               gridIndent={GRID_INDENT}
               fillColor={'red'}
               handleClick={handleAction}

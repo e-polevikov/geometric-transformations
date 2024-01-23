@@ -16,16 +16,16 @@ export function figureReducer(figure, action) {
   }
 
   if (action.type === ACTIONS.UNDO) {
-    if (updatedFigure.currentStateIdx > 0) {
-      updatedFigure.currentStateIdx -= 1;
+    if (updatedFigure.stateIdx > 0) {
+      updatedFigure.stateIdx -= 1;
     }
 
     return updatedFigure;
   }
 
   if (action.type === ACTIONS.REDO) {
-    if (updatedFigure.currentStateIdx < updatedFigure.points.length - 1) {
-      updatedFigure.currentStateIdx += 1;
+    if (updatedFigure.stateIdx < updatedFigure.points.length - 1) {
+      updatedFigure.stateIdx += 1;
     }
 
     return updatedFigure;
@@ -37,7 +37,7 @@ export function figureReducer(figure, action) {
 
   if (action.states.transformation === TRANSFORMATIONS.REFLECT) {
     let reflectedPoints = reflectPoints(
-      updatedFigure.points[updatedFigure.currentStateIdx],
+      updatedFigure.points[updatedFigure.stateIdx],
       action.states.linePoints
     );
 
@@ -48,11 +48,11 @@ export function figureReducer(figure, action) {
     }
 
     updatedFigure.points = updatedFigure.points.slice(
-      0, updatedFigure.currentStateIdx + 1
+      0, updatedFigure.stateIdx + 1
     );
 
     updatedFigure.points.push(reflectedPoints);
-    updatedFigure.currentStateIdx += 1;
+    updatedFigure.stateIdx += 1;
 
     return updatedFigure;
   }
@@ -60,7 +60,7 @@ export function figureReducer(figure, action) {
   let clockwise = (action.states.transformation === TRANSFORMATIONS.ROTATE_CLOCKWISE);
 
   let rotatedPoints = rotatePoints(
-    updatedFigure.points[updatedFigure.currentStateIdx],
+    updatedFigure.points[updatedFigure.stateIdx],
     action.states.anglePoints,
     clockwise
   );
@@ -72,11 +72,11 @@ export function figureReducer(figure, action) {
   }
 
   updatedFigure.points = updatedFigure.points.slice(
-    0, updatedFigure.currentStateIdx + 1
+    0, updatedFigure.stateIdx + 1
   );
 
   updatedFigure.points.push(rotatedPoints);
-  updatedFigure.currentStateIdx += 1;
+  updatedFigure.stateIdx += 1;
 
   return updatedFigure;
 }

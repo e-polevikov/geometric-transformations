@@ -35,7 +35,7 @@ export function GeomStage3() {
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.REFLECT);
 
   const [figure, figureDispatch] = useReducer(figureReducer, {
-    points: [FIGURE.POINTS], currentStateIdx: 0
+    points: [FIGURE.POINTS], stateIdx: 0
   });
 
   const [figureImage, figureImageDispatch] = useReducer(figureImageReducer, {
@@ -101,7 +101,7 @@ export function GeomStage3() {
               points={figureImage.points}
             />
             <Figure
-              points={figure.points.slice(0, figure.currentStateIdx + 1)}
+              points={figure.points.slice(0, figure.stateIdx + 1)}
               gridIndent={GRID_INDENT}
             />
             <Angle

@@ -10,7 +10,7 @@ import {
 
 export function figureImageReducer(figureImage, action) {
   let figure = action.states.figures[action.states.selectedFigureId - 1];
-  let points = figure.points[figure.currentStateIdx];
+  let points = figure.points[figure.stateIdx];
 
   if (action.type === ACTIONS.APPLY) {
     points = figureImage.points;
@@ -23,19 +23,19 @@ export function figureImageReducer(figureImage, action) {
   }
 
   if (action.type === ACTIONS.UNDO) {
-    if (figure.currentStateIdx === 0) {
+    if (figure.stateIdx === 0) {
       return figureImage;
     }
 
-    points = figure.points[figure.currentStateIdx - 1];
+    points = figure.points[figure.stateIdx - 1];
   }
 
   if (action.type === ACTIONS.REDO) {
-    if (figure.currentStateIdx === figure.points.length - 1) {
+    if (figure.stateIdx === figure.points.length - 1) {
       return figureImage;
     }
 
-    points = figure.points[figure.currentStateIdx + 1];
+    points = figure.points[figure.stateIdx + 1];
   }
 
   if (action.states.transformation === TRANSFORMATIONS.REFLECT) {
