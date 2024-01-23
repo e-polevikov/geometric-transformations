@@ -40,7 +40,7 @@ export function StageGrid({ stageWidth, stageHeight, gridIndent }) {
           key={String(points.id)}
           points={[points.x1, points.y1, points.x2, points.y2]}
           stroke={'grey'}
-          strokeWidth={0.2}
+          strokeWidth={0.75}
         />
       ))}
     </>
