@@ -57,7 +57,9 @@ function normalizePoints(points, gridIndent) {
   return normalizedPoints;
 }
 
-export function getAreaIntersectionRatio(figure1Points, figure2Points, gridIndent) {
+export function getAreaIntersectionRatio(
+  figure1Points, figure2Points, gridIndent
+) {
   let intersection = PolyBool.intersect({
     regions: [unflattenPoints(figure1Points)],
     inverted: false
@@ -82,7 +84,9 @@ export function getAreaIntersectionRatio(figure1Points, figure2Points, gridInden
   return intersectionRatio;
 }
 
-export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
+export function getSumOfDistances(
+  figure1Points, figure2Points, gridIndent
+) {
   let numPoints = figure1Points.length / 2;
   let sumOfDistances = 0;
 
@@ -98,4 +102,16 @@ export function getSumOfDistances(figure1Points, figure2Points, gridIndent) {
   sumOfDistances /= gridIndent;
 
   return sumOfDistances;
+}
+
+export function calcLevel1IntersectionRatio(
+  figure1Points, figure2Points, gridIndent
+) {
+  return 1.0;
+}
+
+export function calcLevel1Metrics(
+  figure1, figure2, gridIndent
+) {
+  return [];
 }

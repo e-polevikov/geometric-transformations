@@ -1,12 +1,6 @@
-import {
-  getSumOfDistances,
-  getPathLength,
-  getAreaIntersectionRatio
-} from '../../services/GeomMetrics';
 
-export function ResultDisplay({
-  figures, gridIndent
-}) {
+
+export function MetricsDisplay({ metrics }) {
   /*
   const sumOfDistances = getSumOfDistances(
     figure.points[figure.currentStateIdx],
@@ -19,6 +13,7 @@ export function ResultDisplay({
   );
   */
 
+  /*
   const figure1 = figures[0];
   const figure2 = figures[1];
 
@@ -37,6 +32,7 @@ export function ResultDisplay({
     figure2.points[figure2.currentStateIdx],
     gridIndent
   );
+  */
 
   const tableStyle = {
     border: "1px solid black",
@@ -64,9 +60,9 @@ export function ResultDisplay({
           <td style={tableDataStyle}>T</td>
         </tr>
         <tr>
-          <td style={tableDataStyle}>{intersectionRatio.toFixed(3)}</td>
-          <td style={tableDataStyle}>{pathLength.toFixed(3)}</td>
-          <td style={tableDataStyle}>{numTransformations}</td>
+          <td style={tableDataStyle}>{metrics.intersectionRatio.toFixed(3)}</td>
+          <td style={tableDataStyle}>{metrics.pathLength.toFixed(3)}</td>
+          <td style={tableDataStyle}>{metrics.numTransformations}</td>
         </tr>
       </table>
     </>

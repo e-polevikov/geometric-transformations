@@ -17,7 +17,7 @@ import { Transformations1 } from '../Transformations/Transformations1';
 import { ActionControl } from '../ActionControl/ActionControl';
 import { Figure } from '../Figure/Figure';
 import { FigureImage } from '../Figure/FigureImage';
-import { ResultDisplay } from '../ResultDisplay/ResultDisplay';
+import { MetricsDisplay } from '../MetricsDisplay/MetricsDisplay';
 
 import { figureReducer } from '../../hooks/FigureReducer';
 import { figureImageReducer } from '../../hooks/FigureImageReducer';
@@ -30,6 +30,12 @@ export function GeomStage1() {
   const [linePoints, setLinePoints] = useState(LINE_POINTS);
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.REFLECT);
   const [selectedFigureId, setSelectedFigureId] = useState(1);
+
+  const [metrics, setMetrics] = useState({
+    intersectionRatio: 0,
+    pathLength: 0,
+    numTransformations: 0
+  });
 
   const [figure1, figureDispatch1] = useReducer(figureReducer, {
     id: 1, points: [FIGURE1.POINTS], currentStateIdx: 0
@@ -82,9 +88,8 @@ export function GeomStage1() {
         <ActionControl
           handleClick={handleAction}
         />
-        <ResultDisplay
-          figures={[figure1, figure2]}
-          gridIndent={GRID_INDENT}
+        <MetricsDisplay
+          metrics={metrics}
         />
       </div>
 

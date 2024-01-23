@@ -20,7 +20,7 @@ import { ActionControl } from '../ActionControl/ActionControl';
 import { Figure } from '../Figure/Figure';
 import { FigureImage } from '../Figure/FigureImage';
 import { TargetFigure } from '../Figure/TargetFigure';
-import { ResultDisplay } from '../ResultDisplay/ResultDisplay';
+import { MetricsDisplay } from '../MetricsDisplay/MetricsDisplay';
 
 import { figureReducer } from '../../hooks/FigureReducer';
 import { figureImageReducer } from '../../hooks/FigureImageReducer';
@@ -82,10 +82,7 @@ export function GeomStage3() {
         <ActionControl
           handleClick={handleAction}
         />
-        <ResultDisplay
-          figure={figure}
-          targetFigure={targetFigure}
-          gridIndent={GRID_INDENT}
+        <MetricsDisplay
         />
       </div>
 
