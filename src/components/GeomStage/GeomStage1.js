@@ -15,7 +15,7 @@ import { TRANSFORMATIONS } from '../../constants/Transformations';
 import { StageGrid } from '../StageGrid/StageGrid';
 import { Line } from '../Line/Line';
 import { Angle } from '../Angle/Angle';
-import { Transformations } from '../Transformations/Transformations';
+import { Transformations1 } from '../Transformations/Transformations1';
 import { ActionControl } from '../ActionControl/ActionControl';
 import { Figure } from '../Figure/Figure';
 import { FigureImage } from '../Figure/FigureImage';
@@ -85,7 +85,7 @@ export function GeomStage1() {
   return (
     <div className={styles['geom-stage']}>
       <div className={styles['panel']}>
-        <Transformations
+        <Transformations1
           transformation={transformation}
           setTransformation={setTransformation}
           handleChange={handleAction}
@@ -127,15 +127,6 @@ export function GeomStage1() {
               gridIndent={GRID_INDENT}
               fillColor={'red'}
               handleClick={handleAction}
-            />
-            <Angle
-              anglePoints={anglePoints}
-              setAnglePoints={setAnglePoints}
-              isSelected={transformation !== TRANSFORMATIONS.REFLECT}
-              handlePointMove={handleAction}
-              stageWidth={STAGE_WIDTH}
-              stageHeight={STAGE_HEIGHT}
-              gridIndent={GRID_INDENT}
             />
             <Line
               linePoints={linePoints}
