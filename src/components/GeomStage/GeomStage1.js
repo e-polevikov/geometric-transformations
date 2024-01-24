@@ -6,6 +6,7 @@ import {
   STAGE_HEIGHT,
   GRID_INDENT,
   LINE_POINTS,
+  ANGLE_POINTS,
   FIGURE1, FIGURE2
 } from '../../constants/GeomStage1';
 
@@ -13,7 +14,9 @@ import { TRANSFORMATIONS } from '../../constants/Transformations';
 
 import { StageGrid } from '../StageGrid/StageGrid';
 import { Line } from '../Line/Line';
+import { Angle } from '../Angle/Angle';
 import { ActionControl } from '../ActionControl/ActionControl';
+import { Transformations } from '../Transformations/Transformations';
 import { Figure } from '../Figure/Figure';
 import { FigureImage } from '../Figure/FigureImage';
 import { MetricsDisplay } from '../MetricsDisplay/MetricsDisplay';
@@ -28,7 +31,9 @@ import styles from './GeomStage.module.css';
 
 export function GeomStage1() {
   const [linePoints, setLinePoints] = useState(LINE_POINTS);
+  const [anglePoints, setAnglePoints] = useState(ANGLE_POINTS);
   const [selectedFigureId, setSelectedFigureId] = useState(1);
+  const [transformation, setTransformation] = useState(TRANSFORMATIONS.REFLECT);
 
   const [metrics, setMetrics] = useState({
     intersectionRatio: 0,
@@ -54,10 +59,15 @@ export function GeomStage1() {
       states: {
         figures: [figure1, figure2],
         selectedFigureId: selectedFigureId,
-        transformation: TRANSFORMATIONS.REFLECT,
-        linePoints: linePoints
+        transformation: transformation,
+        linePoints: linePoints,
+        anglePoints: anglePoints
       }
     };
+
+    if (states.transformation) {
+      action.states.transformation = states.transformation;
+    }
 
     if (states.linePoints) {
       action.states.linePoints = states.linePoints;
@@ -65,6 +75,10 @@ export function GeomStage1() {
 
     if (states.selectedFigureId) {
       action.states.selectedFigureId = states.selectedFigureId;
+    }
+
+    if (states.anglePoints) {
+      action.states.anglePoints = states.anglePoints;
     }
 
     figure1Dispatch(action);
@@ -79,7 +93,11 @@ export function GeomStage1() {
   return (
     <div className={styles['geom-stage']}>
       <div className={styles['panel']}>
-        <h2 style={{textAlign: "center"}}>Преобразования</h2>
+        <Transformations
+          transformation={transformation}
+          setTransformation={setTransformation}
+          handleChange={handleAction}
+        />
         <ActionControl
           handleClick={handleAction}
         />
@@ -116,6 +134,15 @@ export function GeomStage1() {
               gridIndent={GRID_INDENT}
               fillColor={'red'}
               handleClick={handleAction}
+            />
+            <Angle
+              anglePoints={anglePoints}
+              setAnglePoints={setAnglePoints}
+              isSelected={transformation !== TRANSFORMATIONS.REFLECT}
+              handlePointMove={handleAction}
+              stageWidth={STAGE_WIDTH}
+              stageHeight={STAGE_HEIGHT}
+              gridIndent={GRID_INDENT}
             />
             <Line
               linePoints={linePoints}
