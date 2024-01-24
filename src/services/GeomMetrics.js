@@ -78,7 +78,7 @@ export function getAreaIntersectionRatio(
   let figureArea = geometric.polygonArea(
     normalizePoints(unflattenPoints(figure1Points), gridIndent)
   );
-
+  
   let intersectionRatio = intersectionArea / figureArea;
 
   return intersectionRatio;
@@ -107,7 +107,65 @@ export function getSumOfDistances(
 export function calcLevel1IntersectionRatio(
   figure1Points, figure2Points, gridIndent
 ) {
-  return getAreaIntersectionRatio(figure1Points, figure2Points, gridIndent);
+  // Building polygon for figure1 rectangle
+  let rectangle1Points = [
+    [figure1Points[0], figure1Points[1]],
+    [figure1Points[2], figure1Points[3]]
+  ];
+
+  let rotationPoint = geometric.pointRotate(
+    rectangle1Points[0], 180,
+    [
+      figure1Points[figure1Points.length - 4],
+      figure1Points[figure1Points.length - 3]
+    ]
+  );
+  rectangle1Points.push(geometric.pointRotate(rectangle1Points[1], 180, rotationPoint));
+
+  rotationPoint = geometric.pointRotate(
+    rectangle1Points[1], 180,
+    [
+      figure1Points[figure1Points.length - 4],
+      figure1Points[figure1Points.length - 3]
+    ]
+  );
+  rectangle1Points.push(geometric.pointRotate(rectangle1Points[0], 180, rotationPoint));
+
+  // Building polygon for figure2 rectangle
+  let length2 = figure2Points.length;
+
+  let rectangle2Points = [
+    [figure2Points[length2 - 2], figure2Points[length2 - 1]],
+    [figure2Points[length2 - 4], figure2Points[length2 - 3]]
+  ];
+
+  rotationPoint = geometric.pointRotate(
+    rectangle2Points[0], 180,
+    [
+      figure2Points[4],
+      figure2Points[5]
+    ]
+  );
+  rectangle2Points.push(geometric.pointRotate(rectangle2Points[1], 180, rotationPoint));
+
+  rotationPoint = geometric.pointRotate(
+    rectangle2Points[1], 180,
+    [
+      figure2Points[4],
+      figure2Points[5]
+    ]
+  );
+  rectangle2Points.push(geometric.pointRotate(rectangle2Points[0], 180, rotationPoint));
+
+  let rectanglesIntersectionRatio = getAreaIntersectionRatio(
+    rectangle1Points.flat(), rectangle2Points.flat(), gridIndent
+  );
+
+  let figuresIntersectionRatio = getAreaIntersectionRatio(
+    figure1Points, figure2Points, gridIndent
+  );
+
+  return rectanglesIntersectionRatio - figuresIntersectionRatio;
 }
 
 export function calcLevel1Metrics(
