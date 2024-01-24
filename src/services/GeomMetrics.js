@@ -57,7 +57,7 @@ function normalizePoints(points, gridIndent) {
   return normalizedPoints;
 }
 
-export function getAreaIntersectionRatio(
+export function getIntersectionArea(
   figure1Points, figure2Points, gridIndent
 ) {
   let intersection = PolyBool.intersect({
@@ -75,13 +75,15 @@ export function getAreaIntersectionRatio(
     intersectionArea += geometric.polygonArea(polygon);
   }
 
+  /*
   let figureArea = geometric.polygonArea(
     normalizePoints(unflattenPoints(figure1Points), gridIndent)
   );
   
   let intersectionRatio = intersectionArea / figureArea;
+  */
 
-  return intersectionRatio;
+  return intersectionArea;
 }
 
 export function getSumOfDistances(
@@ -157,15 +159,19 @@ export function calcLevel1IntersectionRatio(
   );
   rectangle2Points.push(geometric.pointRotate(rectangle2Points[0], 180, rotationPoint));
 
-  let rectanglesIntersectionRatio = getAreaIntersectionRatio(
+  let rectanglesIntersectionArea = getIntersectionArea(
     rectangle1Points.flat(), rectangle2Points.flat(), gridIndent
   );
 
-  let figuresIntersectionRatio = getAreaIntersectionRatio(
+  let figuresIntersectionArea = getIntersectionArea(
     figure1Points, figure2Points, gridIndent
   );
 
-  return rectanglesIntersectionRatio - figuresIntersectionRatio;
+  let rectangleArea = geometric.polygonArea(
+    normalizePoints(rectangle1Points, gridIndent)
+  );
+
+  return (rectanglesIntersectionArea - figuresIntersectionArea) / rectangleArea;
 }
 
 export function calcLevel1Metrics(
