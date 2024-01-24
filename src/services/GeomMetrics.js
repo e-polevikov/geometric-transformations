@@ -107,11 +107,31 @@ export function getSumOfDistances(
 export function calcLevel1IntersectionRatio(
   figure1Points, figure2Points, gridIndent
 ) {
-  return 1.0;
+  return getAreaIntersectionRatio(figure1Points, figure2Points, gridIndent);
 }
 
 export function calcLevel1Metrics(
   figure1, figure2, gridIndent
 ) {
-  return [];
+  let intersectionRatio = calcLevel1IntersectionRatio(
+    figure1.points[figure1.stateIdx],
+    figure2.points[figure2.stateIdx],
+    gridIndent
+  );
+
+  let pathLength = getPathLength(
+    figure1.points.slice(0, figure1.stateIdx + 1),
+    gridIndent
+  ) + getPathLength(
+    figure2.points.slice(0, figure2.stateIdx + 1),
+    gridIndent
+  );
+
+  let numTransformations = figure1.stateIdx + figure2.stateIdx;
+
+  return {
+    intersectionRatio: intersectionRatio,
+    pathLength: pathLength,
+    numTransformations: numTransformations
+  };
 }

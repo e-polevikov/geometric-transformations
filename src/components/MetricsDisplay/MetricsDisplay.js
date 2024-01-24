@@ -1,39 +1,6 @@
 
 
 export function MetricsDisplay({ metrics }) {
-  /*
-  const sumOfDistances = getSumOfDistances(
-    figure.points[figure.stateIdx],
-    targetFigure.points, gridIndent
-  );
-
-  const areaIntersectionRatio = getAreaIntersectionRatio(
-    figure.points[figure.stateIdx],
-    targetFigure.points, gridIndent    
-  );
-  */
-
-  /*
-  const figure1 = figures[0];
-  const figure2 = figures[1];
-
-  const pathLength = getPathLength(
-    figure1.points.slice(0, figure1.stateIdx + 1),
-    gridIndent
-  ) + getPathLength(
-    figure2.points.slice(0, figure2.stateIdx + 1),
-    gridIndent
-  );
-
-  const numTransformations = figure1.stateIdx + figure2.stateIdx;
-
-  const intersectionRatio = getAreaIntersectionRatio(
-    figure1.points[figure1.stateIdx],
-    figure2.points[figure2.stateIdx],
-    gridIndent
-  );
-  */
-
   const tableStyle = {
     border: "1px solid black",
     padding: "8px",
