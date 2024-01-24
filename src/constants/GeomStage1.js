@@ -10,17 +10,17 @@ export const STAGE_HEIGHT = GRID_INDENT * GRID_SIZE.HEIGHT;
 export const ANGLE_POINTS = [{
     id: "0",
     x: 1 * GRID_INDENT,
-    y: 1 * GRID_INDENT,
+    y: 6 * GRID_INDENT,
     isDragging: false
   }, {
     id: "1",
-    x: 5 * GRID_INDENT,
-    y: 5 * GRID_INDENT,
+    x: 1 * GRID_INDENT,
+    y: 9 * GRID_INDENT,
     isDragging: false
   }, {
     id: "2",
-    x: 5 * GRID_INDENT,
-    y: 10 * GRID_INDENT,
+    x: 3 * GRID_INDENT,
+    y: 9 * GRID_INDENT,
     isDragging: false
   }
 ];
