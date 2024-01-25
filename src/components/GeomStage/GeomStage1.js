@@ -25,7 +25,7 @@ import { figureReducer } from '../../hooks/FigureReducer';
 import { figureImageReducer } from '../../hooks/FigureImageReducer';
 
 import { reflectPoints } from '../../services/GeomTransformations';
-import { calcLevel1Metrics } from '../../services/GeomMetrics';
+import { calcMetrics } from '../../services/GeomMetrics';
 
 import styles from './GeomStage.module.css';
 
@@ -87,7 +87,7 @@ export function GeomStage1() {
   }
 
   useEffect(() => {
-    setMetrics(calcLevel1Metrics(figure1, figure2, GRID_INDENT));
+    setMetrics(calcMetrics([figure1, figure2], GRID_INDENT));
   }, [figure1.stateIdx, figure2.stateIdx]);
 
   return (

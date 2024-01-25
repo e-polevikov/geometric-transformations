@@ -106,6 +106,7 @@ export function getSumOfDistances(
   return sumOfDistances;
 }
 
+/*
 export function calcLevel1IntersectionRatio(
   figure1Points, figure2Points, gridIndent
 ) {
@@ -218,6 +219,26 @@ export function calcLevel2Metrics(
     figure1.stateIdx +
     figure2.stateIdx +
     figure3.stateIdx;
+
+  return {
+    intersectionRatio: 1.0,
+    pathLength: pathLength,
+    numTransformations: numTransformations
+  };
+} */
+
+export function calcMetrics(figures, gridIndent) {
+  let pathLength = 0;
+  let numTransformations = 0;
+
+  for (let i = 0; i < figures.length; i++) {
+    pathLength += getPathLength(
+      figures[i].points.slice(0, figures[i].stateIdx + 1),
+      gridIndent
+    );
+
+    numTransformations += figures[i].stateIdx;
+  }
 
   return {
     intersectionRatio: 1.0,
