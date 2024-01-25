@@ -1,6 +1,71 @@
 import * as PolyBool from 'polybooljs';
 import * as geometric from 'geometric'
 
+export function calcMetrics(figures, gridIndent) {
+  let pathLength = 0;
+  let numTransformations = 0;
+
+  for (let i = 0; i < figures.length; i++) {
+    pathLength += getPathLength(
+      figures[i].points.slice(0, figures[i].stateIdx + 1),
+      gridIndent
+    );
+
+    numTransformations += figures[i].stateIdx;
+  }
+
+  let intersectionRatio = getIntersectionRatio(figures, gridIndent);
+
+  return {
+    intersectionRatio: intersectionRatio,
+    pathLength: pathLength,
+    numTransformations: numTransformations
+  };
+}
+
+export function getIntersectionRatio(figures, gridIndent) {
+  let boundsPolygons = figures.map((figure) => {
+    return {
+      regions: [unflattenPoints(figure.bounds[figure.stateIdx])],
+      inverted: false
+    };
+  });
+
+  let figuresPolygons = figures.map((figure) => {
+    return {
+      regions: [unflattenPoints(figure.points[figure.stateIdx])],
+      inverted: false
+    };
+  });
+
+  let boundsIntersection = boundsPolygons[0];
+  let figuresIntersection = figuresPolygons[0];
+
+  for (let i = 1; i < boundsPolygons.length; i++) {
+    boundsIntersection = PolyBool.intersect(boundsIntersection, boundsPolygons[i]);
+    figuresIntersection = PolyBool.intersect(figuresIntersection, figuresPolygons[i]);
+  }
+
+  let boundsIntersectionArea = 0;
+  for (let i = 0; i < boundsIntersection.regions.length; i++) {
+    let polygon = normalizePoints(boundsIntersection.regions[i], gridIndent);
+    boundsIntersectionArea += geometric.polygonArea(polygon);
+  }
+
+  let figuresIntersectionArea = 0;
+  for (let i = 0; i < figuresIntersection.regions.length; i++) {
+    let polygon = normalizePoints(figuresIntersection.regions[i], gridIndent);
+    figuresIntersectionArea += geometric.polygonArea(polygon);
+  }
+
+  let boundsPolygon = unflattenPoints(figures[0].bounds[figures[0].stateIdx]);
+  let boundsArea = geometric.polygonArea(normalizePoints(boundsPolygon, gridIndent));
+
+  let intersectionRatio = (boundsIntersectionArea - figuresIntersectionArea) / boundsArea;
+
+  return intersectionRatio;
+}
+
 export function getPathLength(figurePoints, gridIndent) {
   let centroids = figurePoints.map((points) => {
     return getCentroidCoordinates(points);
@@ -57,35 +122,7 @@ function normalizePoints(points, gridIndent) {
   return normalizedPoints;
 }
 
-export function getIntersectionArea(
-  figure1Points, figure2Points, gridIndent
-) {
-  let intersection = PolyBool.intersect({
-    regions: [unflattenPoints(figure1Points)],
-    inverted: false
-  }, {
-    regions: [unflattenPoints(figure2Points)],
-    inverted: false
-  });
-
-  let intersectionArea = 0;
-
-  for (let i = 0; i < intersection.regions.length; i++) {
-    let polygon = normalizePoints(intersection.regions[i], gridIndent);
-    intersectionArea += geometric.polygonArea(polygon);
-  }
-
-  /*
-  let figureArea = geometric.polygonArea(
-    normalizePoints(unflattenPoints(figure1Points), gridIndent)
-  );
-  
-  let intersectionRatio = intersectionArea / figureArea;
-  */
-
-  return intersectionArea;
-}
-
+/*
 export function getSumOfDistances(
   figure1Points, figure2Points, gridIndent
 ) {
@@ -104,7 +141,7 @@ export function getSumOfDistances(
   sumOfDistances /= gridIndent;
 
   return sumOfDistances;
-}
+} */
 
 /*
 export function calcLevel1IntersectionRatio(
@@ -226,23 +263,3 @@ export function calcLevel2Metrics(
     numTransformations: numTransformations
   };
 } */
-
-export function calcMetrics(figures, gridIndent) {
-  let pathLength = 0;
-  let numTransformations = 0;
-
-  for (let i = 0; i < figures.length; i++) {
-    pathLength += getPathLength(
-      figures[i].points.slice(0, figures[i].stateIdx + 1),
-      gridIndent
-    );
-
-    numTransformations += figures[i].stateIdx;
-  }
-
-  return {
-    intersectionRatio: 1.0,
-    pathLength: pathLength,
-    numTransformations: numTransformations
-  };
-}

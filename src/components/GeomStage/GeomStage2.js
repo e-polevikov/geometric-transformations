@@ -1,5 +1,5 @@
 import { useState, useReducer, useEffect } from 'react';
-import { Stage, Layer } from 'react-konva';
+import { Stage, Layer, Line as KonvaLine } from 'react-konva';
 
 import {
   STAGE_WIDTH,
@@ -42,15 +42,24 @@ export function GeomStage2() {
   });
 
   const [figure1, figure1Dispatch] = useReducer(figureReducer, {
-    id: 1, points: [FIGURE1.POINTS], stateIdx: 0
+    id: FIGURE1.ID,
+    points: [FIGURE1.POINTS],
+    bounds: [FIGURE1.TARGET_BOUNDS],
+    stateIdx: 0
   });
 
   const [figure2, figure2Dispatch] = useReducer(figureReducer, {
-    id: 2, points: [FIGURE2.POINTS], stateIdx: 0
+    id: FIGURE2.ID,
+    points: [FIGURE2.POINTS],
+    bounds: [FIGURE2.TARGET_BOUNDS],
+    stateIdx: 0
   });
 
   const [figure3, figure3Dispatch] = useReducer(figureReducer, {
-    id: 3, points: [FIGURE3.POINTS], stateIdx: 0
+    id: FIGURE3.ID,
+    points: [FIGURE3.POINTS],
+    bounds: [FIGURE3.TARGET_BOUNDS],
+    stateIdx: 0
   });
 
   const [figureImage, figureImageDispatch] = useReducer(figureImageReducer, {

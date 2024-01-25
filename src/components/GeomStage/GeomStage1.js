@@ -1,5 +1,5 @@
 import { useState, useReducer, useEffect } from 'react';
-import { Stage, Layer } from 'react-konva';
+import { Stage, Layer, Line as KonvaLine } from 'react-konva';
 
 import {
   STAGE_WIDTH,
@@ -122,24 +122,6 @@ export function GeomStage1() {
             />
             <FigureImage
               points={figureImage.points}
-            />
-            <Figure
-              figureId={FIGURE1.ID}
-              selectedFigureId={selectedFigureId}
-              setSelectedFigureId={setSelectedFigureId}
-              points={figure1.bounds.slice(0, figure1.stateIdx + 1)}
-              gridIndent={GRID_INDENT}
-              fillColor={'yellow'}
-              handleClick={handleAction}
-            />
-            <Figure
-              figureId={FIGURE2.ID}
-              selectedFigureId={selectedFigureId}
-              setSelectedFigureId={setSelectedFigureId}
-              points={figure2.bounds.slice(0, figure2.stateIdx + 1)}
-              gridIndent={GRID_INDENT}
-              fillColor={'yellow'}
-              handleClick={handleAction}
             />
             <Figure
               figureId={FIGURE1.ID}
