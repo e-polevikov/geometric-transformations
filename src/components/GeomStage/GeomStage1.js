@@ -153,7 +153,7 @@ export function GeomStage1() {
             <Line
               linePoints={linePoints}
               setLinePoints={setLinePoints}
-              isSelected={true}
+              isSelected={transformation === TRANSFORMATIONS.REFLECT}
               handlePointMove={handleAction}
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}

@@ -150,7 +150,7 @@ export function Line({
         key={"0"}
         points={konvaLinePoints}
         stroke={'black'}
-        strokeWidth={isSelected ? 1.5 : 0.75}
+        strokeWidth={isSelected ? 2.0 : 1.0}
       />
       {linePoints.map((point) => (
         <Circle
@@ -158,7 +158,7 @@ export function Line({
           key={point.id}
           x={point.x}
           y={point.y}
-          radius={gridIndent / 5}
+          radius={gridIndent / 6}
           fill={'black'}
           stroke={point.isDragging ? 'blue' : null}
           strokeWidth={3}
