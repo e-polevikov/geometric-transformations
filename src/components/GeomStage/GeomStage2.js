@@ -132,7 +132,7 @@ export function GeomStage2() {
               points={figureImage.points}
             />
             <Figure
-              figureId={1}
+              figureId={FIGURE1.ID}
               selectedFigureId={selectedFigureId}
               setSelectedFigureId={setSelectedFigureId}
               points={figure1.points.slice(0, figure1.stateIdx + 1)}
@@ -141,7 +141,7 @@ export function GeomStage2() {
               handleClick={handleAction}
             />
             <Figure
-              figureId={2}
+              figureId={FIGURE2.ID}
               selectedFigureId={selectedFigureId}
               setSelectedFigureId={setSelectedFigureId}
               points={figure2.points.slice(0, figure2.stateIdx + 1)}
@@ -150,7 +150,7 @@ export function GeomStage2() {
               handleClick={handleAction}
             />
             <Figure
-              figureId={3}
+              figureId={FIGURE3.ID}
               selectedFigureId={selectedFigureId}
               setSelectedFigureId={setSelectedFigureId}
               points={figure3.points.slice(0, figure3.stateIdx + 1)}
