@@ -32,7 +32,7 @@ import styles from './GeomStage.module.css';
 export function GeomStage1() {
   const [linePoints, setLinePoints] = useState(LINE_POINTS);
   const [anglePoints, setAnglePoints] = useState(ANGLE_POINTS);
-  const [selectedFigureId, setSelectedFigureId] = useState(1);
+  const [selectedFigureId, setSelectedFigureId] = useState(FIGURE1.ID);
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.REFLECT);
 
   const [metrics, setMetrics] = useState({
@@ -42,11 +42,17 @@ export function GeomStage1() {
   });
 
   const [figure1, figure1Dispatch] = useReducer(figureReducer, {
-    id: 1, points: [FIGURE1.POINTS], stateIdx: 0
+    id: FIGURE1.ID,
+    points: [FIGURE1.POINTS],
+    bounds: [FIGURE1.TARGET_BOUNDS],
+    stateIdx: 0
   });
 
   const [figure2, figure2Dispatch] = useReducer(figureReducer, {
-    id: 2, points: [FIGURE2.POINTS], stateIdx: 0
+    id: FIGURE2.ID,
+    points: [FIGURE2.POINTS],
+    bounds: [FIGURE2.TARGET_BOUNDS],
+    stateIdx: 0
   });
 
   const [figureImage, figureImageDispatch] = useReducer(figureImageReducer, {
@@ -118,7 +124,25 @@ export function GeomStage1() {
               points={figureImage.points}
             />
             <Figure
-              figureId={1}
+              figureId={FIGURE1.ID}
+              selectedFigureId={selectedFigureId}
+              setSelectedFigureId={setSelectedFigureId}
+              points={figure1.bounds.slice(0, figure1.stateIdx + 1)}
+              gridIndent={GRID_INDENT}
+              fillColor={'yellow'}
+              handleClick={handleAction}
+            />
+            <Figure
+              figureId={FIGURE2.ID}
+              selectedFigureId={selectedFigureId}
+              setSelectedFigureId={setSelectedFigureId}
+              points={figure2.bounds.slice(0, figure2.stateIdx + 1)}
+              gridIndent={GRID_INDENT}
+              fillColor={'yellow'}
+              handleClick={handleAction}
+            />
+            <Figure
+              figureId={FIGURE1.ID}
               selectedFigureId={selectedFigureId}
               setSelectedFigureId={setSelectedFigureId}
               points={figure1.points.slice(0, figure1.stateIdx + 1)}
@@ -127,7 +151,7 @@ export function GeomStage1() {
               handleClick={handleAction}
             />
             <Figure
-              figureId={2}
+              figureId={FIGURE2.ID}
               selectedFigureId={selectedFigureId}
               setSelectedFigureId={setSelectedFigureId}
               points={figure2.points.slice(0, figure2.stateIdx + 1)}
