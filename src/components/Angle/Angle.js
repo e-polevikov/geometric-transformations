@@ -101,6 +101,18 @@ export function Angle({
     x = Math.round(x / gridIndent) * gridIndent;
     y = Math.round(y / gridIndent) * gridIndent;
 
+    for (let i = 0; i < anglePoints.length; i++) {
+      if (i === pointId) {
+        continue;
+      }
+
+      if (x === anglePoints[i].x && y === anglePoints[i].y) {
+        x = anglePoints[pointId].x;
+        y = anglePoints[pointId].y;
+        break;
+      }
+    }
+
     event.target.x(x);
     event.target.y(y);
 

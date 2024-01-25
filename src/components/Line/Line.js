@@ -114,6 +114,13 @@ export function Line({
     x = Math.round(x / gridIndent) * gridIndent;
     y = Math.round(y / gridIndent) * gridIndent;
 
+    let sndPointId = (pointId + 1) % 2;
+
+    if (x === linePoints[sndPointId].x && y === linePoints[sndPointId].y) {
+      x = linePoints[pointId].x;
+      y = linePoints[pointId].y;
+    }
+
     event.target.x(x);
     event.target.y(y);
 
