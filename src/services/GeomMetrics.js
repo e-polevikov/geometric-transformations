@@ -199,3 +199,29 @@ export function calcLevel1Metrics(
     numTransformations: numTransformations
   };
 }
+
+export function calcLevel2Metrics(
+  figure1, figure2, figure3, gridIndent
+) {
+  let pathLength = getPathLength(
+    figure1.points.slice(0, figure1.stateIdx + 1),
+    gridIndent
+  ) + getPathLength(
+    figure2.points.slice(0, figure2.stateIdx + 1),
+    gridIndent
+  ) + getPathLength(
+    figure3.points.slice(0, figure3.stateIdx + 1),
+    gridIndent
+  );
+
+  let numTransformations =
+    figure1.stateIdx +
+    figure2.stateIdx +
+    figure3.stateIdx;
+
+  return {
+    intersectionRatio: 1.0,
+    pathLength: pathLength,
+    numTransformations: numTransformations
+  };
+}
