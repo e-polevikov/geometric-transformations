@@ -7,8 +7,9 @@ import {
   GRID_INDENT,
   LINE_POINTS,
   ANGLE_POINTS,
-  FIGURE1, FIGURE2
-} from '../../constants/GeomStage1';
+} from '../../constants/GeomStage';
+
+import { FIGURE1, FIGURE2 } from '../../constants/FiguresLevel1';
 
 import { TRANSFORMATIONS } from '../../constants/Transformations';
 
