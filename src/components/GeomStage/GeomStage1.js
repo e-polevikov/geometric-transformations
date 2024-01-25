@@ -1,5 +1,5 @@
 import { useState, useReducer, useEffect } from 'react';
-import { Stage, Layer, Line as KonvaLine } from 'react-konva';
+import { Stage, Layer } from 'react-konva';
 
 import {
   STAGE_WIDTH,

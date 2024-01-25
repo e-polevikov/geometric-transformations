@@ -1,5 +1,5 @@
 import { useState, useReducer, useEffect } from 'react';
-import { Stage, Layer, Line as KonvaLine } from 'react-konva';
+import { Stage, Layer } from 'react-konva';
 
 import {
   STAGE_WIDTH,
@@ -32,7 +32,7 @@ import styles from './GeomStage.module.css';
 export function GeomStage3() {
   const [linePoints, setLinePoints] = useState(LINE_POINTS);
   const [anglePoints, setAnglePoints] = useState(ANGLE_POINTS);
-  const [selectedFigureId, setSelectedFigureId] = useState(1);
+  const [selectedFigureId, setSelectedFigureId] = useState(FIGURE1.ID);
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.REFLECT);
 
   const [metrics, setMetrics] = useState({
