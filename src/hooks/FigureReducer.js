@@ -47,11 +47,21 @@ export function figureReducer(figure, action) {
       return updatedFigure;
     }
 
+    let reflectedBounds = reflectPoints(
+      updatedFigure.bounds[updatedFigure.stateIdx],
+      action.states.linePoints
+    );
+
     updatedFigure.points = updatedFigure.points.slice(
       0, updatedFigure.stateIdx + 1
     );
 
+    updatedFigure.bounds = updatedFigure.bounds.slice(
+      0, updatedFigure.stateIdx + 1
+    );
+
     updatedFigure.points.push(reflectedPoints);
+    updatedFigure.bounds.push(reflectedBounds);
     updatedFigure.stateIdx += 1;
 
     return updatedFigure;
@@ -71,11 +81,22 @@ export function figureReducer(figure, action) {
     return updatedFigure;
   }
 
+  let rotatedBounds = rotatePoints(
+    updatedFigure.bounds[updatedFigure.stateIdx],
+    action.states.anglePoints,
+    clockwise
+  );
+
   updatedFigure.points = updatedFigure.points.slice(
     0, updatedFigure.stateIdx + 1
   );
 
+  updatedFigure.bounds = updatedFigure.bounds.slice(
+    0, updatedFigure.stateIdx + 1
+  );
+
   updatedFigure.points.push(rotatedPoints);
+  updatedFigure.bounds.push(rotatedBounds);
   updatedFigure.stateIdx += 1;
 
   return updatedFigure;
