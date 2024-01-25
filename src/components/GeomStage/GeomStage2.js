@@ -1,4 +1,4 @@
-import { useState, useReducer } from 'react';
+import { useState, useReducer, useEffect } from 'react';
 import { Stage, Layer } from 'react-konva';
 
 import {
@@ -7,48 +7,62 @@ import {
   GRID_INDENT,
   LINE_POINTS,
   ANGLE_POINTS,
-  FIGURE, TARGET_FIGURE
-} from '../../constants/GeomStage';
+  FIGURE1, FIGURE2, FIGURE3,
+} from '../../constants/GeomStage2';
 
 import { TRANSFORMATIONS } from '../../constants/Transformations';
 
 import { StageGrid } from '../StageGrid/StageGrid';
 import { Line } from '../Line/Line';
 import { Angle } from '../Angle/Angle';
-import { Transformations } from '../Transformations/Transformations';
 import { ActionControl } from '../ActionControl/ActionControl';
+import { Transformations } from '../Transformations/Transformations';
 import { Figure } from '../Figure/Figure';
 import { FigureImage } from '../Figure/FigureImage';
-import { TargetFigure } from '../Figure/TargetFigure';
 import { MetricsDisplay } from '../MetricsDisplay/MetricsDisplay';
 
 import { figureReducer } from '../../hooks/FigureReducer';
 import { figureImageReducer } from '../../hooks/FigureImageReducer';
 
 import { reflectPoints } from '../../services/GeomTransformations';
+import { calcLevel1Metrics } from '../../services/GeomMetrics';
 
 import styles from './GeomStage.module.css';
 
 export function GeomStage2() {
   const [linePoints, setLinePoints] = useState(LINE_POINTS);
   const [anglePoints, setAnglePoints] = useState(ANGLE_POINTS);
+  const [selectedFigureId, setSelectedFigureId] = useState(1);
   const [transformation, setTransformation] = useState(TRANSFORMATIONS.REFLECT);
 
-  const [figure, figureDispatch] = useReducer(figureReducer, {
-    points: [FIGURE.POINTS], stateIdx: 0
+  const [metrics, setMetrics] = useState({
+    intersectionRatio: 0,
+    pathLength: 0,
+    numTransformations: 0
+  });
+
+  const [figure1, figure1Dispatch] = useReducer(figureReducer, {
+    id: 1, points: [FIGURE1.POINTS], stateIdx: 0
+  });
+
+  const [figure2, figure2Dispatch] = useReducer(figureReducer, {
+    id: 2, points: [FIGURE2.POINTS], stateIdx: 0
+  });
+
+  const [figure3, figure3Dispatch] = useReducer(figureReducer, {
+    id: 3, points: [FIGURE3.POINTS], stateIdx: 0
   });
 
   const [figureImage, figureImageDispatch] = useReducer(figureImageReducer, {
-    points: reflectPoints(FIGURE.POINTS, linePoints)
+    points: reflectPoints(FIGURE1.POINTS, linePoints)
   });
-
-  const targetFigure = {points: TARGET_FIGURE.POINTS};
 
   function handleAction(type, states) {
     let action = {
       type: type,
       states: {
-        figure: figure,
+        figures: [figure1, figure2, figure3],
+        selectedFigureId: selectedFigureId,
         transformation: transformation,
         linePoints: linePoints,
         anglePoints: anglePoints
@@ -63,13 +77,23 @@ export function GeomStage2() {
       action.states.linePoints = states.linePoints;
     }
 
+    if (states.selectedFigureId) {
+      action.states.selectedFigureId = states.selectedFigureId;
+    }
+
     if (states.anglePoints) {
       action.states.anglePoints = states.anglePoints;
     }
 
-    figureDispatch(action);
+    figure1Dispatch(action);
+    figure2Dispatch(action);
+    figure3Dispatch(action);
     figureImageDispatch(action);
   }
+
+  useEffect(() => {
+    setMetrics(calcLevel1Metrics(figure1, figure2, GRID_INDENT));
+  }, [figure1.stateIdx, figure2.stateIdx, figure3.stateIdx]);
 
   return (
     <div className={styles['geom-stage']}>
@@ -83,6 +107,7 @@ export function GeomStage2() {
           handleClick={handleAction}
         />
         <MetricsDisplay
+          metrics={metrics}
         />
       </div>
 
@@ -94,15 +119,35 @@ export function GeomStage2() {
               stageHeight={STAGE_HEIGHT}
               gridIndent={GRID_INDENT}
             />
-            <TargetFigure
-              points={targetFigure.points}
-            />
             <FigureImage
               points={figureImage.points}
             />
             <Figure
-              points={figure.points.slice(0, figure.stateIdx + 1)}
+              figureId={1}
+              selectedFigureId={selectedFigureId}
+              setSelectedFigureId={setSelectedFigureId}
+              points={figure1.points.slice(0, figure1.stateIdx + 1)}
               gridIndent={GRID_INDENT}
+              fillColor={'blue'}
+              handleClick={handleAction}
+            />
+            <Figure
+              figureId={2}
+              selectedFigureId={selectedFigureId}
+              setSelectedFigureId={setSelectedFigureId}
+              points={figure2.points.slice(0, figure2.stateIdx + 1)}
+              gridIndent={GRID_INDENT}
+              fillColor={'red'}
+              handleClick={handleAction}
+            />
+            <Figure
+              figureId={3}
+              selectedFigureId={selectedFigureId}
+              setSelectedFigureId={setSelectedFigureId}
+              points={figure3.points.slice(0, figure3.stateIdx + 1)}
+              gridIndent={GRID_INDENT}
+              fillColor={'green'}
+              handleClick={handleAction}
             />
             <Angle
               anglePoints={anglePoints}
@@ -116,7 +161,7 @@ export function GeomStage2() {
             <Line
               linePoints={linePoints}
               setLinePoints={setLinePoints}
-              isSelected={transformation === TRANSFORMATIONS.REFLECT}
+              isSelected={true}
               handlePointMove={handleAction}
               stageWidth={STAGE_WIDTH}
               stageHeight={STAGE_HEIGHT}
