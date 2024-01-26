@@ -1,7 +1,7 @@
 import { Circle, Text, Line as KonvaLine } from 'react-konva';
 import { useState } from 'react';
 
-import { ACTIONS } from '../../constants/Action';
+import { ACTIONS } from '../../constants/Actions';
 
 function getKonvaLinePoints(linePoints, stageWidth, stageHeight) {
   let x1 = linePoints[0].x;

@@ -1,6 +1,6 @@
 
 
-export function MetricsDisplay({ metrics }) {
+export function ResultDisplay({ metrics }) {
   const tableStyle = {
     border: "1px solid black",
     padding: "8px",
@@ -24,12 +24,12 @@ export function MetricsDisplay({ metrics }) {
         <tr>
           <td style={tableDataStyle}>S</td>
           <td style={tableDataStyle}>L</td>
-          <td style={tableDataStyle}>T</td>
+          <td style={tableDataStyle}>C</td>
         </tr>
         <tr>
-          <td style={tableDataStyle}>{metrics.intersectionRatio.toFixed(3)}</td>
+          <td style={tableDataStyle}>{metrics.similarity.toFixed(3)}</td>
           <td style={tableDataStyle}>{metrics.pathLength.toFixed(3)}</td>
-          <td style={tableDataStyle}>{metrics.numTransformations}</td>
+          <td style={tableDataStyle}>{metrics.cost}</td>
         </tr>
       </table>
     </>

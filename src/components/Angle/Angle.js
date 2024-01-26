@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { getAngle } from '../../services/GeomTransformations';
 
-import { ACTIONS } from '../../constants/Action';
+import { ACTIONS } from '../../constants/Actions';
 
 function getKonvaLinePoints(anglePoints) {
   return [

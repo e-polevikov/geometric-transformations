@@ -1,7 +1,7 @@
 import styles from './Transformations.module.css';
 
 import { TRANSFORMATIONS } from '../../constants/Transformations';
-import { ACTIONS } from '../../constants/Action';
+import { ACTIONS } from '../../constants/Actions';
 
 export function Transformations({
   transformation,

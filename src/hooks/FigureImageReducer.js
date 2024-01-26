@@ -1,4 +1,4 @@
-import { ACTIONS } from "../constants/Action";
+import { ACTIONS } from "../constants/Actions";
 import { TRANSFORMATIONS } from "../constants/Transformations";
 import { STAGE_WIDTH, STAGE_HEIGHT } from "../constants/GeomStage";
 

@@ -4,7 +4,7 @@ export function figureIsOutOfStageBoundaries(figurePoints, stageWidth, stageHeig
     let x = figurePoints[2 * i];
     let y = figurePoints[2 * i + 1];
 
-    if (x >= 0 && x <= stageWidth && y >= 0 && y <= stageHeight) {
+    if (x > 0 && x < stageWidth && y > 0 && y < stageHeight) {
       return false;
     }
   }

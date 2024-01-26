@@ -1,6 +1,6 @@
 import { Line, Circle } from 'react-konva';
 
-import { ACTIONS } from '../../constants/Action';
+import { ACTIONS } from '../../constants/Actions';
 
 import { getCentroidCoordinates } from '../../services/GeomMetrics';
 

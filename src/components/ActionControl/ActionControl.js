@@ -1,6 +1,6 @@
 import styles from './ActionControl.module.css';
 
-import { ACTIONS } from '../../constants/Action';
+import { ACTIONS } from '../../constants/Actions';
 
 export function ActionControl({ handleClick }) {
   return (

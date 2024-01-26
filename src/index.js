@@ -29,11 +29,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
-/*
-TODO:
-- Metric
-- Level2
-- Level3
-- Description
-*/

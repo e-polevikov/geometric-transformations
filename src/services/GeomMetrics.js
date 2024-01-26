@@ -1,9 +1,11 @@
 import * as PolyBool from 'polybooljs';
 import * as geometric from 'geometric'
 
-export function calcMetrics(figures, gridIndent) {
+import { COST } from '../constants/Transformations';
+
+export function calcMetrics(figures, gridIndent, minFiguresPerimeter) {
   let pathLength = 0;
-  let numTransformations = 0;
+  let cost = 0;
 
   for (let i = 0; i < figures.length; i++) {
     pathLength += getPathLength(
@@ -11,26 +13,24 @@ export function calcMetrics(figures, gridIndent) {
       gridIndent
     );
 
-    numTransformations += figures[i].stateIdx;
+    for (let j = 0; j < figures[i].stateIdx; j++) {
+      let transformation = figures[i].transformations[j];
+      cost += COST[transformation];
+    }
   }
 
-  let intersectionRatio = getIntersectionRatio(figures, gridIndent);
+  let similarity = getSimilarity(
+    figures, gridIndent, minFiguresPerimeter
+  );
 
   return {
-    intersectionRatio: intersectionRatio,
+    similarity: similarity,
     pathLength: pathLength,
-    numTransformations: numTransformations
+    cost: cost
   };
 }
 
-export function getIntersectionRatio(figures, gridIndent) {
-  let boundsPolygons = figures.map((figure) => {
-    return {
-      regions: [unflattenPoints(figure.bounds[figure.stateIdx])],
-      inverted: false
-    };
-  });
-
+export function getSimilarity(figures, gridIndent, minFiguresPerimeter) {
   let figuresPolygons = figures.map((figure) => {
     return {
       regions: [unflattenPoints(figure.points[figure.stateIdx])],
@@ -38,32 +38,61 @@ export function getIntersectionRatio(figures, gridIndent) {
     };
   });
 
-  let boundsIntersection = boundsPolygons[0];
-  let figuresIntersection = figuresPolygons[0];
+  let figuresXor = figuresPolygons[0];
 
-  for (let i = 1; i < boundsPolygons.length; i++) {
-    boundsIntersection = PolyBool.intersect(boundsIntersection, boundsPolygons[i]);
-    figuresIntersection = PolyBool.intersect(figuresIntersection, figuresPolygons[i]);
+  for (let i = 1; i < figuresPolygons.length; i++) {
+    figuresXor = PolyBool.xor(figuresXor, figuresPolygons[i]);
   }
 
-  let boundsIntersectionArea = 0;
-  for (let i = 0; i < boundsIntersection.regions.length; i++) {
-    let polygon = normalizePoints(boundsIntersection.regions[i], gridIndent);
-    boundsIntersectionArea += geometric.polygonArea(polygon);
+  let figuresXorArea = 0;
+  for (let i = 0; i < figuresXor.regions.length; i++) {
+    let polygon = normalizePoints(figuresXor.regions[i], gridIndent);
+    figuresXorArea += geometric.polygonArea(polygon);
   }
 
-  let figuresIntersectionArea = 0;
-  for (let i = 0; i < figuresIntersection.regions.length; i++) {
-    let polygon = normalizePoints(figuresIntersection.regions[i], gridIndent);
-    figuresIntersectionArea += geometric.polygonArea(polygon);
+  let convexHull = normalizePoints(
+    geometric.polygonHull(figuresXor.regions.flat()),
+    gridIndent
+  );
+
+  let convexHullArea = geometric.polygonArea(convexHull);
+  let similarity = figuresXorArea / convexHullArea;
+
+  let figuresIntersect = false;
+  for (let i = 0; i < figuresPolygons.length - 1; i++) {
+    for (let j = i + 1; j < figuresPolygons.length; j++) {
+      let intersection = PolyBool.intersect(figuresPolygons[i], figuresPolygons[j]);
+      if (intersection.regions.length > 0) {
+        figuresIntersect = true;
+        break;
+      }
+    }
   }
 
-  let boundsPolygon = unflattenPoints(figures[0].bounds[figures[0].stateIdx]);
-  let boundsArea = geometric.polygonArea(normalizePoints(boundsPolygon, gridIndent));
+  if (!figuresIntersect) {
+    let convexHullPerimeter = getConvexHullPerimeter(convexHull);
+    similarity += minFiguresPerimeter / convexHullPerimeter;
+  }
 
-  let intersectionRatio = (boundsIntersectionArea - figuresIntersectionArea) / boundsArea;
+  return similarity * 50;
+}
 
-  return intersectionRatio;
+function getConvexHullPerimeter(convexHull) {
+  let convexHullPerimeter = 0;
+
+  for (let i = 0; i < convexHull.length - 1; i++) {
+    let [x1, y1] = convexHull[i];
+    let [x2, y2] = convexHull[i + 1];
+  
+    convexHullPerimeter += Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+  }
+
+  let [x1, y1] = convexHull[0];
+  let [x2, y2] = convexHull[convexHull.length - 1];
+
+  convexHullPerimeter += Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+
+  return convexHullPerimeter;
 }
 
 export function getPathLength(figurePoints, gridIndent) {
@@ -121,145 +150,3 @@ function normalizePoints(points, gridIndent) {
 
   return normalizedPoints;
 }
-
-/*
-export function getSumOfDistances(
-  figure1Points, figure2Points, gridIndent
-) {
-  let numPoints = figure1Points.length / 2;
-  let sumOfDistances = 0;
-
-  for (let i = 0; i < numPoints; i++) {
-    let x1 = figure1Points[2 * i];
-    let y1 = figure1Points[2 * i + 1];
-    let x2 = figure2Points[2 * i];
-    let y2 = figure2Points[2 * i + 1];
-
-    sumOfDistances += Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-  }
-
-  sumOfDistances /= gridIndent;
-
-  return sumOfDistances;
-} */
-
-/*
-export function calcLevel1IntersectionRatio(
-  figure1Points, figure2Points, gridIndent
-) {
-  // Building polygon for figure1 rectangle
-  let rectangle1Points = [
-    [figure1Points[0], figure1Points[1]],
-    [figure1Points[2], figure1Points[3]]
-  ];
-
-  let rotationPoint = geometric.pointRotate(
-    rectangle1Points[0], 180,
-    [
-      figure1Points[figure1Points.length - 4],
-      figure1Points[figure1Points.length - 3]
-    ]
-  );
-  rectangle1Points.push(geometric.pointRotate(rectangle1Points[1], 180, rotationPoint));
-
-  rotationPoint = geometric.pointRotate(
-    rectangle1Points[1], 180,
-    [
-      figure1Points[figure1Points.length - 4],
-      figure1Points[figure1Points.length - 3]
-    ]
-  );
-  rectangle1Points.push(geometric.pointRotate(rectangle1Points[0], 180, rotationPoint));
-
-  // Building polygon for figure2 rectangle
-  let length2 = figure2Points.length;
-
-  let rectangle2Points = [
-    [figure2Points[length2 - 2], figure2Points[length2 - 1]],
-    [figure2Points[length2 - 4], figure2Points[length2 - 3]]
-  ];
-
-  rotationPoint = geometric.pointRotate(
-    rectangle2Points[0], 180,
-    [
-      figure2Points[4],
-      figure2Points[5]
-    ]
-  );
-  rectangle2Points.push(geometric.pointRotate(rectangle2Points[1], 180, rotationPoint));
-
-  rotationPoint = geometric.pointRotate(
-    rectangle2Points[1], 180,
-    [
-      figure2Points[4],
-      figure2Points[5]
-    ]
-  );
-  rectangle2Points.push(geometric.pointRotate(rectangle2Points[0], 180, rotationPoint));
-
-  let rectanglesIntersectionArea = getIntersectionArea(
-    rectangle1Points.flat(), rectangle2Points.flat(), gridIndent
-  );
-
-  let figuresIntersectionArea = getIntersectionArea(
-    figure1Points, figure2Points, gridIndent
-  );
-
-  let rectangleArea = geometric.polygonArea(
-    normalizePoints(rectangle1Points, gridIndent)
-  );
-
-  return (rectanglesIntersectionArea - figuresIntersectionArea) / rectangleArea;
-}
-
-export function calcLevel1Metrics(
-  figure1, figure2, gridIndent
-) {
-  let intersectionRatio = calcLevel1IntersectionRatio(
-    figure1.points[figure1.stateIdx],
-    figure2.points[figure2.stateIdx],
-    gridIndent
-  );
-
-  let pathLength = getPathLength(
-    figure1.points.slice(0, figure1.stateIdx + 1),
-    gridIndent
-  ) + getPathLength(
-    figure2.points.slice(0, figure2.stateIdx + 1),
-    gridIndent
-  );
-
-  let numTransformations = figure1.stateIdx + figure2.stateIdx;
-
-  return {
-    intersectionRatio: intersectionRatio,
-    pathLength: pathLength,
-    numTransformations: numTransformations
-  };
-}
-
-export function calcLevel2Metrics(
-  figure1, figure2, figure3, gridIndent
-) {
-  let pathLength = getPathLength(
-    figure1.points.slice(0, figure1.stateIdx + 1),
-    gridIndent
-  ) + getPathLength(
-    figure2.points.slice(0, figure2.stateIdx + 1),
-    gridIndent
-  ) + getPathLength(
-    figure3.points.slice(0, figure3.stateIdx + 1),
-    gridIndent
-  );
-
-  let numTransformations =
-    figure1.stateIdx +
-    figure2.stateIdx +
-    figure3.stateIdx;
-
-  return {
-    intersectionRatio: 1.0,
-    pathLength: pathLength,
-    numTransformations: numTransformations
-  };
-} */

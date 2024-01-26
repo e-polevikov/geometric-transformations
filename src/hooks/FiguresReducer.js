@@ -1,4 +1,4 @@
-import { ACTIONS } from "../constants/Action";
+import { ACTIONS } from "../constants/Actions";
 import { TRANSFORMATIONS } from "../constants/Transformations";
 import { STAGE_WIDTH, STAGE_HEIGHT } from "../constants/GeomStage";
 
@@ -8,19 +8,29 @@ import {
   figureIsOutOfStageBoundaries
 } from "../services/GeomTransformations";
 
-export function figureReducer(figure, action) {
-  let updatedFigure = JSON.parse(JSON.stringify(figure));
+function updateFigures(figures, updatedFigure) {
+  let updatedFigures = figures.map((figure) => {
+    if (figure.id === updatedFigure.id) {
+      return updatedFigure;
+    }
 
-  if (updatedFigure.id !== action.states.selectedFigureId) {
-    return updatedFigure;
-  }
+    return figure;
+  });
+
+  return updatedFigures;
+}
+
+export function figuresReducer(figures, action) {
+  let updatedFigure = JSON.parse(JSON.stringify(
+    figures[action.states.selectedFigureId - 1]
+  ));
 
   if (action.type === ACTIONS.UNDO) {
     if (updatedFigure.stateIdx > 0) {
       updatedFigure.stateIdx -= 1;
     }
 
-    return updatedFigure;
+    return updateFigures(figures, updatedFigure);
   }
 
   if (action.type === ACTIONS.REDO) {
@@ -28,11 +38,11 @@ export function figureReducer(figure, action) {
       updatedFigure.stateIdx += 1;
     }
 
-    return updatedFigure;
+    return updateFigures(figures, updatedFigure);
   }
 
   if (action.type !== ACTIONS.APPLY) {
-    return updatedFigure;
+    return updateFigures(figures, updatedFigure);
   }
 
   if (action.states.transformation === TRANSFORMATIONS.REFLECT) {
@@ -44,27 +54,22 @@ export function figureReducer(figure, action) {
     if (figureIsOutOfStageBoundaries(
       reflectedPoints, STAGE_WIDTH, STAGE_HEIGHT
     )) {
-      return updatedFigure;
+      return figures;
     }
-
-    let reflectedBounds = reflectPoints(
-      updatedFigure.bounds[updatedFigure.stateIdx],
-      action.states.linePoints
-    );
 
     updatedFigure.points = updatedFigure.points.slice(
       0, updatedFigure.stateIdx + 1
     );
 
-    updatedFigure.bounds = updatedFigure.bounds.slice(
+    updatedFigure.transformations = updatedFigure.transformations.slice(
       0, updatedFigure.stateIdx + 1
     );
 
     updatedFigure.points.push(reflectedPoints);
-    updatedFigure.bounds.push(reflectedBounds);
+    updatedFigure.transformations.push(TRANSFORMATIONS.REFLECT);
     updatedFigure.stateIdx += 1;
 
-    return updatedFigure;
+    return updateFigures(figures, updatedFigure);
   }
 
   let clockwise = (action.states.transformation === TRANSFORMATIONS.ROTATE_CLOCKWISE);
@@ -78,26 +83,20 @@ export function figureReducer(figure, action) {
   if (figureIsOutOfStageBoundaries(
     rotatedPoints, STAGE_WIDTH, STAGE_HEIGHT
   )) {
-    return updatedFigure;
+    return figures;
   }
-
-  let rotatedBounds = rotatePoints(
-    updatedFigure.bounds[updatedFigure.stateIdx],
-    action.states.anglePoints,
-    clockwise
-  );
 
   updatedFigure.points = updatedFigure.points.slice(
     0, updatedFigure.stateIdx + 1
   );
 
-  updatedFigure.bounds = updatedFigure.bounds.slice(
+  updatedFigure.transformations = updatedFigure.transformations.slice(
     0, updatedFigure.stateIdx + 1
   );
 
   updatedFigure.points.push(rotatedPoints);
-  updatedFigure.bounds.push(rotatedBounds);
+  updatedFigure.transformations.push(TRANSFORMATIONS.ROTATE_CLOCKWISE);
   updatedFigure.stateIdx += 1;
 
-  return updatedFigure;
+  return updateFigures(figures, updatedFigure);
 }
