@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import './styles.css'
+
 import { Home } from './pages/Home';
 import { Level1 } from './pages/Level1';
 import { Level2 } from './pages/Level2';
