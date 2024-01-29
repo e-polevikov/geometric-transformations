@@ -17,7 +17,7 @@ export function ResultDisplay({ metrics }) {
   };
 
   return (
-    <div style={{fontSize: "22px"}}>
+    <div style={{fontSize: "20px"}}>
       <h2 style={{textAlign: "center"}}>Результат</h2>
       <table style={tableStyle}>
         <tr>
