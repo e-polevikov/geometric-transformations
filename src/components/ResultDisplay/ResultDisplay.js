@@ -1,5 +1,4 @@
 
-
 export function ResultDisplay({ metrics }) {
   const tableStyle = {
     border: "1px solid black",
@@ -18,7 +17,7 @@ export function ResultDisplay({ metrics }) {
   };
 
   return (
-    <>
+    <div style={{fontSize: "22px"}}>
       <h2 style={{textAlign: "center"}}>Результат</h2>
       <table style={tableStyle}>
         <tr>
@@ -32,6 +31,6 @@ export function ResultDisplay({ metrics }) {
           <td style={tableDataStyle}>{metrics.cost}</td>
         </tr>
       </table>
-    </>
+    </div>
   );
 }

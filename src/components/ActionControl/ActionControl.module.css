@@ -10,7 +10,7 @@
   width: 100%;
   padding-top: 12px;
   padding-bottom: 12px;
-  font-size: 120%;
+  font-size: 26px;
 }
 
 .undo-redo-btn-container {
@@ -22,5 +22,5 @@
   width: 50%;
   padding-top: 6px;
   padding-bottom: 6px;
-  font-size: 150%;
+  font-size: 36px;
 }

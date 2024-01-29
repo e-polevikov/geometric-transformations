@@ -9,7 +9,7 @@ export function Transformations({
   handleChange
 }) {
   return (
-    <>
+    <div className={styles['transformations']}>
       <h2 style={{textAlign: "center"}}>Преобразования</h2>
       <div className={styles['radio-btn']}>
         <input
@@ -67,6 +67,6 @@ export function Transformations({
           Поворот относительно точки B на угол ABC по часовой стрелке
         </label>
       </div>
-    </>
+    </div>
   );
 }

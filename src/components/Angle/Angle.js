@@ -130,27 +130,27 @@ export function Angle({
     <>
       <Text
         x={konvaLinePoints[2]}
-        y={konvaLinePoints[3] - gridIndent}
+        y={konvaLinePoints[3] - 0.75 * gridIndent}
         text={angle.toFixed(1) + '\u00B0'}
-        fontSize={16}
+        fontSize={20}
       />
       <Text
-        x={konvaLinePoints[0] - 0.75 * gridIndent}
+        x={konvaLinePoints[0] - 0.5 * gridIndent}
         y={konvaLinePoints[1] - 0.5 * gridIndent}
         text={'A'}
-        fontSize={16}
+        fontSize={20}
       />
       <Text
         x={konvaLinePoints[2] - 0.25 * gridIndent}
         y={konvaLinePoints[3] + 0.5 * gridIndent}
         text={'B'}
-        fontSize={16}
+        fontSize={20}
       />
       <Text
-        x={konvaLinePoints[4] - 0.75 * gridIndent}
+        x={konvaLinePoints[4] - 0.5 * gridIndent}
         y={konvaLinePoints[5] - 0.5 * gridIndent}
         text={'C'}
-        fontSize={16}
+        fontSize={20}
       />
       <KonvaLine
         id={"0"}

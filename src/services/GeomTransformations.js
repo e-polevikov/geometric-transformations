@@ -31,7 +31,7 @@ export function getAngle(anglePoints) {
   let length1 = Math.sqrt(Math.pow(vector1.x, 2) + Math.pow(vector1.y, 2));
   let length2 = Math.sqrt(Math.pow(vector2.x, 2) + Math.pow(vector2.y, 2));
 
-  let angle = Math.acos(dotProduct / length1 / length2);
+  let angle = Math.acos(Math.fround(dotProduct / length1 / length2));
 
   return angle * 180 / Math.PI;
 }

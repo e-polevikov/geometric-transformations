@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 
+import styles from './Home.module.css'
+
 export function Home() {
   return (
-    <div style={{margin: "4px", padding: "2px"}}>
+    <div className={styles['homepage']}>
       <h1 style={{textAlign: "center"}}>Задача «Геометрические преобразования»</h1>
 
       <ul>

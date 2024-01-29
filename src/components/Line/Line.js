@@ -141,16 +141,16 @@ export function Line({
   return (
     <>
       <Text
-        x={labelPoints[0].x - 0.75 * gridIndent}
+        x={labelPoints[0].x - 0.5 * gridIndent}
         y={labelPoints[0].y - 0.5 * gridIndent}
         text={'D'}
-        fontSize={16}
+        fontSize={20}
       />
       <Text
-        x={labelPoints[1].x - 0.75 * gridIndent}
+        x={labelPoints[1].x - 0.5 * gridIndent}
         y={labelPoints[1].y - 0.5 * gridIndent}
         text={'E'}
-        fontSize={16}
+        fontSize={20}
       />
       <KonvaLine
         id={"0"}
