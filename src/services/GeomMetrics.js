@@ -39,9 +39,11 @@ export function getSimilarity(figures, gridIndent, minFiguresPerimeter) {
   });
 
   let figuresXor = figuresPolygons[0];
+  let figuresUnion = figuresPolygons[0];
 
   for (let i = 1; i < figuresPolygons.length; i++) {
     figuresXor = PolyBool.xor(figuresXor, figuresPolygons[i]);
+    figuresUnion = PolyBool.union(figuresUnion, figuresPolygons[i]);
   }
 
   let figuresXorArea = 0;
@@ -51,7 +53,7 @@ export function getSimilarity(figures, gridIndent, minFiguresPerimeter) {
   }
 
   let convexHull = normalizePoints(
-    geometric.polygonHull(figuresXor.regions.flat()),
+    geometric.polygonHull(figuresUnion.regions.flat()),
     gridIndent
   );
 
