@@ -20,6 +20,8 @@ import { Figure } from '../Figure/Figure';
 import { FigureImage } from '../Figure/FigureImage';
 import { ResultDisplay } from '../ResultDisplay/ResultDisplay';
 
+import { ConvexHull } from '../ConvexHull/ConvexHull';
+
 import { figuresReducer } from '../../hooks/FiguresReducer';
 import { figureImageReducer } from '../../hooks/FigureImageReducer';
 
@@ -110,6 +112,7 @@ export function GeomStage({ settings }) {
             <FigureImage
               points={figureImage.points}
             />
+            <ConvexHull figures={figures} />
             {figures.map((figure) => (
               <Figure
                 figureId={figure.id}

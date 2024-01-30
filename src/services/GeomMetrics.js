@@ -97,6 +97,24 @@ function getConvexHullPerimeter(convexHull) {
   return convexHullPerimeter;
 }
 
+export function getConvexHull(figures) {
+  let figuresPolygons = figures.map((figure) => {
+    return {
+      regions: [unflattenPoints(figure.points[figure.stateIdx])],
+      inverted: false
+    };
+  });
+
+  let figuresUnion = figuresPolygons[0];
+
+  for (let i = 1; i < figuresPolygons.length; i++) {
+    figuresUnion = PolyBool.union(figuresUnion, figuresPolygons[i]);
+  }
+
+  let convexHull = geometric.polygonHull(figuresUnion.regions.flat());
+  return convexHull.flat();
+}
+
 export function getPathLength(figurePoints, gridIndent) {
   let centroids = figurePoints.map((points) => {
     return getCentroidCoordinates(points);
