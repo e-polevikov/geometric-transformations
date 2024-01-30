@@ -3,3 +3,26 @@
   margin: 4px;
   padding: 2px;
 }
+
+.images-container {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+figure {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+figure figcaption {
+  text-align: center;
+}
+
+.image {
+  border: 1px solid black;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding: 15px;
+  vertical-align: top; 
+}
