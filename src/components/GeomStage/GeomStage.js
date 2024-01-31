@@ -112,7 +112,6 @@ export function GeomStage({ settings }) {
             <FigureImage
               points={figureImage.points}
             />
-            <ConvexHull figures={figures} />
             {figures.map((figure) => (
               <Figure
                 figureId={figure.id}

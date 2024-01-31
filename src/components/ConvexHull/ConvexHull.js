@@ -9,6 +9,7 @@ export function ConvexHull({ figures }) {
       <Line
         points={convexHull}
         stroke={'black'}
+        closed={true}
         dash={[4, 2]}
         strokeWidth={2.5}
       />      
