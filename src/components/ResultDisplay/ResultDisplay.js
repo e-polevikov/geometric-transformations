@@ -21,9 +21,9 @@ export function ResultDisplay({ metrics }) {
       <h2 style={{textAlign: "center"}}>Результат</h2>
       <table style={tableStyle}>
         <tr>
-          <td style={tableDataStyle}>S</td>
-          <td style={tableDataStyle}>L</td>
-          <td style={tableDataStyle}>C</td>
+          <td style={tableDataStyle}><b>S</b></td>
+          <td style={tableDataStyle}><b>L</b></td>
+          <td style={tableDataStyle}><b>C</b></td>
         </tr>
         <tr>
           <td style={tableDataStyle}>{metrics.similarity.toFixed(3)}</td>
