@@ -114,6 +114,8 @@ export function GeomStage({ settings }) {
             />
             {figures.map((figure) => (
               <Figure
+                id={figure.id}
+                key={figure.id}
                 figureId={figure.id}
                 selectedFigureId={selectedFigureId}
                 setSelectedFigureId={setSelectedFigureId}
