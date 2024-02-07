@@ -50,7 +50,6 @@ export function getSimilarity(figures, gridIndent, minFiguresPerimeter) {
   let figuresXorArea = 0;
   for (let i = 0; i < figuresXor.regions.length; i++) {
     let polygon = normalizePoints(figuresXor.regions[i], gridIndent);
-    console.log(polygon);
     figuresXorArea += geometric.polygonArea(polygon);
   }
 
